@@ -11,7 +11,8 @@
   /* LAYOUT
   /*******************************************/
 
-.player1 {
+.player1,
+.player2 {
   display: flex;
   /* flex-direction: row; */
 }
