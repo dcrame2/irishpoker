@@ -5,33 +5,62 @@
     <meta name="description" content="This is where your description goes" />
     <meta name="keywords" content="one, two, three" />
 
-    <title>Title in the tab</title>
+    <title>Irish Poker</title>
 
     <!-- external CSS link -->
     <!-- <link rel="stylesheet" href="normalize.css" /> -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Card Game!</h1>
+    <h1>Irish Poker</h1>
 
-    <button>Deal Two Cards</button>
+    <!-- <button>Deal Two Cards</button> -->
     <h2>Player 1</h2>
-    <div class="player1">
+    <diinput class="player1">
+
+    <div>
       <img class="p1-card1" src="/img/backofcard.png" alt="playing card" />
+      <input required class ='color' type="text" placeholder="Choose Color">
+      <h4 class="color-result"></h4>
+    </div>
+    <div>
       <img class="p1-card2" src="/img/backofcard.png" alt="playing card" />
+      <input type="text" class ='higher' placeholder="Choose Higher or Lower">
+      <h4 class="higher-result"></h4>
+    </div>
+    <div>
       <img class="p1-card3" src="/img/backofcard.png" alt="playing card" />
+      <input type="text" class="in-out" placeholder=" Choose In or out" >
+      <h4 class="in-result"></h4>
+    </div>
+    <div>
       <img class="p1-card4" src="/img/backofcard.png" alt="playing card" />
+      <input type="text" class='suit' placeholder="Choose Suit" >
+      <h4 class="suit-result"></h4>
+    </div>
     </div>
 
     <h2>Player 2</h2>
     <div class="player2">
-      <img class="p2-card1" src="/img/backofcard.png" alt="playing card" />
-      <img class="p2-card2" src="/img/backofcard.png" alt="playing card" />
-      <img class="p2-card3" src="/img/backofcard.png" alt="playing card" />
-      <img class="p2-card4" src="/img/backofcard.png" alt="playing card" />
+        <div>
+            <img class="p2-card1" src="/img/backofcard.png" alt="playing card" />
+            <input class ='color' type="text" placeholder="Choose Color">
+        </div>
+        <div>
+            <img class="p2-card2" src="/img/backofcard.png" alt="playing card" />
+            <input type="text" placeholder="Choose Higher or Lower">
+        </div>
+        <div>
+            <img class="p2-card3" src="/img/backofcard.png" alt="playing card" />
+            <input type="text" placeholder=" Choose In or out" >
+        </div>
+        <div>
+            <img class="p2-card4" src="/img/backofcard.png" alt="playing card" />
+            <input type="text" placeholder="Choose Suit" >
+        </div>
     </div>
 
-    <h3>Result</h3>
+    <!-- <h3>Result</h3> -->
     <script type="text/javascript" src="index.js"></script>
   </body>
 </html>
