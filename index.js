@@ -13,6 +13,18 @@ fetch(url)
     console.log(`error ${err}`);
   });
 
+//PLAY GAME
+document.querySelector(".play").addEventListener("click", function () {
+  document.querySelector(".game-container").classList.toggle("hidden");
+  document.querySelector(".game-start-container").classList.toggle("hidden");
+  document.querySelector(".header").innerText = "Player 1: Your Turn!";
+});
+
+//PLAYER COUNT
+document.querySelector(".players").addEventListener("click", function () {
+  document.querySelector(".players-modal").classList.toggle("hidden");
+});
+
 document.querySelector(".red").addEventListener("click", function () {
   //   prompt("Is card red or black?");
 

@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: green;
+}
+
 /******************************************
   /* LAYOUT
   /*******************************************/
@@ -34,6 +38,7 @@
 .in-result,
 .suit-result {
   width: 100px;
+  text-align: center;
 }
 img {
   margin: 0 auto;
@@ -43,6 +48,48 @@ img {
 
 h4 {
   font-size: 15px;
+}
+.game-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-container.hidden {
+  display: none;
+}
+
+.start-game {
+  text-align: center;
+}
+
+.header {
+  font-size: 6rem;
+}
+
+.btn {
+  margin: 5px;
+  padding: 10px 30px;
+  font-size: 2rem;
+  border: none;
+}
+
+.btn:hover {
+  background-color: black;
+  color: white;
+}
+
+.game-start-container.hidden {
+  display: none;
+}
+
+.players-modal {
+  background-color: white;
+  height: 650px;
+  width: 650px;
+}
+.players-modal.hidden {
+  display: none;
 }
 
 /******************************************
