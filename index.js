@@ -135,9 +135,6 @@ document.querySelector(".in").addEventListener("click", function () {
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
       console.log(data);
-      // const chosenInOut = document.querySelector(".in-out").value;
-      // console.log(chosenInOut);
-
       const num = convertToNum(data.cards[0].value);
       const card1 = player1Cards[0];
       const card2 = player1Cards[1];
@@ -340,7 +337,7 @@ function convertToNum(val) {
 }
 
 //PLAYER 2
-document.querySelector(".red").addEventListener("click", function () {
+document.querySelector(".red-2").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
@@ -350,10 +347,11 @@ document.querySelector(".red").addEventListener("click", function () {
         data.cards[0].suit === "HEARTS" ||
         data.cards[0].suit === "DIAMONDS"
       ) {
-        document.querySelector(".color-result").innerText =
+        document.querySelector(".color-result-2").innerText =
           "You won by choosing red! Select a player to take 2 drinks!";
       } else {
-        document.querySelector(".color-result").innerText = "YOU LOST! Drink 2";
+        document.querySelector(".color-result-2").innerText =
+          "YOU LOST! Drink 2";
       }
       player2Cards.push(convertToNum(data.cards[0].value));
       console.log(player2Cards);
@@ -365,7 +363,7 @@ document.querySelector(".red").addEventListener("click", function () {
 });
 
 //BLACK
-document.querySelector(".black").addEventListener("click", function () {
+document.querySelector(".black-2").addEventListener("click", function () {
   //   prompt("Is card red or black?");
 
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -373,10 +371,11 @@ document.querySelector(".black").addEventListener("click", function () {
     .then((data) => {
       console.log(data);
       if (data.cards[0].suit === "SPADES" || data.cards[0].suit === "CLUBS") {
-        document.querySelector(".color-result").innerText =
+        document.querySelector(".color-result-2").innerText =
           "You won by choosing black! Select a player to take 2 drinks!";
       } else {
-        document.querySelector(".color-result").innerText = "YOU LOST! Drink 2";
+        document.querySelector(".color-result-2").innerText =
+          "YOU LOST! Drink 2";
       }
       player2Cards.push(convertToNum(data.cards[0].value));
       console.log(player2Cards);
@@ -389,17 +388,17 @@ document.querySelector(".black").addEventListener("click", function () {
 });
 
 //HIGHER
-document.querySelector(".higher").addEventListener("click", function () {
+document.querySelector(".higher-2").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
       console.log(data);
 
       if (player2Cards[0] < convertToNum(data.cards[0].value)) {
-        document.querySelector(".higher-result").innerText =
+        document.querySelector(".higher-result-2").innerText =
           "You won by chosing higher! Select a player to take 4 drinks!";
       } else {
-        document.querySelector(".higher-result").innerText =
+        document.querySelector(".higher-result-2").innerText =
           "YOU LOST! Drink 4!";
       }
 
@@ -414,17 +413,17 @@ document.querySelector(".higher").addEventListener("click", function () {
 });
 
 //LOWER
-document.querySelector(".lower").addEventListener("click", function () {
+document.querySelector(".lower-2").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
       console.log(data);
 
       if (player2Cards[0] > convertToNum(data.cards[0].value)) {
-        document.querySelector(".higher-result").innerText =
+        document.querySelector(".higher-result-2").innerText =
           "You won by chosing lower! Select a player to take 4 drinks!";
       } else {
-        document.querySelector(".higher-result").innerText =
+        document.querySelector(".higher-result-2").innerText =
           "YOU LOST! Drink 4!";
       }
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -438,7 +437,7 @@ document.querySelector(".lower").addEventListener("click", function () {
 });
 
 //IN
-document.querySelector(".in").addEventListener("click", function () {
+document.querySelector(".in-2").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
@@ -450,10 +449,10 @@ document.querySelector(".in").addEventListener("click", function () {
       const card1 = player2Cards[0];
       const card2 = player2Cards[1];
       if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-        document.querySelector(".in-result").innerText =
+        document.querySelector(".in-result-2").innerText =
           "You won by chosing in! Select a player to take 6 drinks!";
       } else {
-        document.querySelector(".in-result").innerText = "YOU LOST! Drink 6!";
+        document.querySelector(".in-result-2").innerText = "YOU LOST! Drink 6!";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -467,7 +466,7 @@ document.querySelector(".in").addEventListener("click", function () {
 });
 
 //OUT
-document.querySelector(".out").addEventListener("click", function () {
+document.querySelector(".out-2").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
@@ -479,10 +478,10 @@ document.querySelector(".out").addEventListener("click", function () {
       const card2 = player2Cards[1];
 
       if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-        document.querySelector(".in-result").innerText =
+        document.querySelector(".in-result-2").innerText =
           "You won by chosing out! Select a player to take 6 drinks!";
       } else {
-        document.querySelector(".in-result").innerText = "YOU LOST! Drink 6!";
+        document.querySelector(".in-result-2").innerText = "YOU LOST! Drink 6!";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -496,7 +495,7 @@ document.querySelector(".out").addEventListener("click", function () {
 });
 
 //DIAMONDS
-document.querySelector(".diamonds").addEventListener("click", function () {
+document.querySelector(".diamonds-2").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
@@ -504,10 +503,11 @@ document.querySelector(".diamonds").addEventListener("click", function () {
       // let chosenSuit = document.querySelector(".suit").value;
 
       if (data.cards[0].suit === "DIAMONDS") {
-        document.querySelector(".suit-result").innerText =
+        document.querySelector(".suit-result-2").innerText =
           "You won by chosing the correct suit! Select a player to take 8 drinks!";
       } else {
-        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result-2").innerText =
+          "YOU LOST! Drink 8!";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -522,7 +522,7 @@ document.querySelector(".diamonds").addEventListener("click", function () {
 });
 
 //SPADES
-document.querySelector(".spades").addEventListener("click", function () {
+document.querySelector(".spades-2").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
@@ -530,10 +530,11 @@ document.querySelector(".spades").addEventListener("click", function () {
       // let chosenSuit = document.querySelector(".suit").value;
 
       if (data.cards[0].suit === "SPADES") {
-        document.querySelector(".suit-result").innerText =
+        document.querySelector(".suit-result-2").innerText =
           "You won by chosing the correct suit! Select a player to take 8 drinks!";
       } else {
-        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result-2").innerText =
+          "YOU LOST! Drink 8!";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -548,17 +549,18 @@ document.querySelector(".spades").addEventListener("click", function () {
 });
 
 //HEARTS
-document.querySelector(".hearts").addEventListener("click", function () {
+document.querySelector(".hearts-2").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
       console.log(data);
 
       if (data.cards[0].suit === "HEARTS") {
-        document.querySelector(".suit-result").innerText =
+        document.querySelector(".suit-result-2").innerText =
           "You won by chosing the correct suit! Select a player to take 8 drinks!";
       } else {
-        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result-2").innerText =
+          "YOU LOST! Drink 8!";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -573,17 +575,18 @@ document.querySelector(".hearts").addEventListener("click", function () {
 });
 
 //CLUBS
-document.querySelector(".clubs").addEventListener("click", function () {
+document.querySelector(".clubs-2").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
       console.log(data);
 
       if (data.cards[0].suit === "CLUBS") {
-        document.querySelector(".suit-result").innerText =
+        document.querySelector(".suit-result-2").innerText =
           "You won by chosing the correct suit! Select a player to take 8 drinks!";
       } else {
-        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result-2").innerText =
+          "YOU LOST! Drink 8!";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
