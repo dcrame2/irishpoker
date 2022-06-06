@@ -26,6 +26,8 @@ body {
 .p1-card3,
 .p1-card4 {
   margin: 20px;
+  /* height: 20vh; */
+  /* width: 10%; */
 }
 .btn-container {
   display: flex;
@@ -53,11 +55,12 @@ h4 {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 40vh;
 }
 
-.game-container.hidden {
+/* .game-container.hidden {
   display: none;
-}
+} */
 
 .start-game {
   text-align: center;
@@ -72,9 +75,12 @@ h4 {
   padding: 10px 30px;
   font-size: 2rem;
   border: none;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
-.btn:hover {
+.btn:hover,
+.player-select:hover {
   background-color: black;
   color: white;
 }
@@ -84,11 +90,45 @@ h4 {
 }
 
 .players-modal {
+  position: absolute;
+  font-size: 2.5rem;
+  text-align: center;
   background-color: white;
-  height: 650px;
-  width: 650px;
+  height: 500px;
+  width: 600px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ccc;
+  border-radius: 6px;
+
+  /* margin: 0 auto; */
 }
-.players-modal.hidden {
+
+.rules-container {
+  position: absolute;
+  /* font-size: 2.5rem; */
+  text-align: center;
+  background-color: white;
+  height: 500px;
+  width: 600px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ccc;
+  border-radius: 6px;
+}
+
+.player-select {
+  padding: 5px 20px;
+  font-size: 2rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.players-modal.hidden,
+.rules-container.hidden {
   display: none;
 }
 
