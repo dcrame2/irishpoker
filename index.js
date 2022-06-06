@@ -1,6 +1,7 @@
 let deckId = "";
 
 let player1Cards = [];
+let player2Cards = [];
 
 const url = `https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`;
 fetch(url)
@@ -300,19 +301,7 @@ function drawFirstPlayer() {
       document.querySelector(".p1-card3").src = data.cards[2].image;
       document.querySelector(".p1-card4").src = data.cards[3].image;
 
-      //   document.querySelector(".player2").src = data.cards[1].image;
-
-      //   let player1Value = convertToNum(data.cards[0].value);
-      //   let player2Value = convertToNum(data.cards[1].value);
-
-      //   if (player1Value > player2Value) {
-      //     document.querySelector("h3").innerText = "Player 1 Wins";
-      //   } else if (player1Value < player2Value) {
-      //     document.querySelector("h3").innerText = "Player 2 Wins";
-      //   } else {
-      //     document.querySelector("h3").innerText = "Time for War!";
-      //   }
-      drawSecondPlayer();
+      // drawSecondPlayer();
     })
     .catch((err) => {
       console.log(`error ${err}`);
@@ -349,3 +338,261 @@ function convertToNum(val) {
     return Number(val);
   }
 }
+
+//PLAYER 2
+document.querySelector(".red").addEventListener("click", function () {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      // const chosenColor = document.querySelector(".color").value;
+      console.log(data);
+      if (
+        data.cards[0].suit === "HEARTS" ||
+        data.cards[0].suit === "DIAMONDS"
+      ) {
+        document.querySelector(".color-result").innerText =
+          "You won by choosing red! Select a player to take 2 drinks!";
+      } else {
+        document.querySelector(".color-result").innerText = "YOU LOST! Drink 2";
+      }
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+      document.querySelector(".p2-card1").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
+
+//BLACK
+document.querySelector(".black").addEventListener("click", function () {
+  //   prompt("Is card red or black?");
+
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      console.log(data);
+      if (data.cards[0].suit === "SPADES" || data.cards[0].suit === "CLUBS") {
+        document.querySelector(".color-result").innerText =
+          "You won by choosing black! Select a player to take 2 drinks!";
+      } else {
+        document.querySelector(".color-result").innerText = "YOU LOST! Drink 2";
+      }
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+
+      document.querySelector(".p2-card1").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
+
+//HIGHER
+document.querySelector(".higher").addEventListener("click", function () {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      console.log(data);
+
+      if (player2Cards[0] < convertToNum(data.cards[0].value)) {
+        document.querySelector(".higher-result").innerText =
+          "You won by chosing higher! Select a player to take 4 drinks!";
+      } else {
+        document.querySelector(".higher-result").innerText =
+          "YOU LOST! Drink 4!";
+      }
+
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+
+      document.querySelector(".p2-card2").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
+
+//LOWER
+document.querySelector(".lower").addEventListener("click", function () {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      console.log(data);
+
+      if (player2Cards[0] > convertToNum(data.cards[0].value)) {
+        document.querySelector(".higher-result").innerText =
+          "You won by chosing lower! Select a player to take 4 drinks!";
+      } else {
+        document.querySelector(".higher-result").innerText =
+          "YOU LOST! Drink 4!";
+      }
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+
+      document.querySelector(".p2-card2").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
+
+//IN
+document.querySelector(".in").addEventListener("click", function () {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      console.log(data);
+      // const chosenInOut = document.querySelector(".in-out").value;
+      // console.log(chosenInOut);
+
+      const num = convertToNum(data.cards[0].value);
+      const card1 = player2Cards[0];
+      const card2 = player2Cards[1];
+      if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
+        document.querySelector(".in-result").innerText =
+          "You won by chosing in! Select a player to take 6 drinks!";
+      } else {
+        document.querySelector(".in-result").innerText = "YOU LOST! Drink 6!";
+      }
+
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+
+      document.querySelector(".p2-card3").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
+
+//OUT
+document.querySelector(".out").addEventListener("click", function () {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      console.log(data);
+      // const chosenInOut = document.querySelector(".in-out").value;
+      // console.log(chosenInOut);
+      const num = convertToNum(data.cards[0].value);
+      const card1 = player2Cards[0];
+      const card2 = player2Cards[1];
+
+      if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
+        document.querySelector(".in-result").innerText =
+          "You won by chosing out! Select a player to take 6 drinks!";
+      } else {
+        document.querySelector(".in-result").innerText = "YOU LOST! Drink 6!";
+      }
+
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+
+      document.querySelector(".p2-card3").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
+
+//DIAMONDS
+document.querySelector(".diamonds").addEventListener("click", function () {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      console.log(data);
+      // let chosenSuit = document.querySelector(".suit").value;
+
+      if (data.cards[0].suit === "DIAMONDS") {
+        document.querySelector(".suit-result").innerText =
+          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+      } else {
+        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+      }
+
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+      //   document.querySelector(".player1").src = data.cards[0].image;
+
+      document.querySelector(".p2-card4").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
+
+//SPADES
+document.querySelector(".spades").addEventListener("click", function () {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      console.log(data);
+      // let chosenSuit = document.querySelector(".suit").value;
+
+      if (data.cards[0].suit === "SPADES") {
+        document.querySelector(".suit-result").innerText =
+          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+      } else {
+        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+      }
+
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+      //   document.querySelector(".player1").src = data.cards[0].image;
+
+      document.querySelector(".p2-card4").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
+
+//HEARTS
+document.querySelector(".hearts").addEventListener("click", function () {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      console.log(data);
+
+      if (data.cards[0].suit === "HEARTS") {
+        document.querySelector(".suit-result").innerText =
+          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+      } else {
+        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+      }
+
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+      //   document.querySelector(".player1").src = data.cards[0].image;
+
+      document.querySelector(".p2-card4").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
+
+//CLUBS
+document.querySelector(".clubs").addEventListener("click", function () {
+  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    .then((res) => res.json()) // parse response as JSON
+    .then((data) => {
+      console.log(data);
+
+      if (data.cards[0].suit === "CLUBS") {
+        document.querySelector(".suit-result").innerText =
+          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+      } else {
+        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+      }
+
+      player2Cards.push(convertToNum(data.cards[0].value));
+      console.log(player2Cards);
+      //   document.querySelector(".player1").src = data.cards[0].image;
+
+      document.querySelector(".p2-card4").src = data.cards[0].image;
+    })
+    .catch((err) => {
+      console.log(`error ${err}`);
+    });
+});
