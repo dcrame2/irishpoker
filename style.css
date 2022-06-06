@@ -58,9 +58,9 @@ h4 {
   height: 40vh;
 }
 
-/* .game-container.hidden {
+.game-container.hidden {
   display: none;
-} */
+}
 
 .start-game {
   text-align: center;
