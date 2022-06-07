@@ -20,24 +20,36 @@ body {
   display: flex;
   flex-direction: row;
   margin: 100px;
-  border: 1px solid #ccc;
+  border: 1px solid limegreen;
   padding: 10px;
+}
+
+.btn-select {
+  border: none;
+  border-radius: 6px;
+  padding: 2px 8px;
 }
 .p1-card1,
 .p1-card2,
 .p1-card3,
-.p1-card4 {
-  margin: 0 auto;
+.p1-card4,
+.p2-card1,
+.p2-card2,
+.p2-card3,
+.p2-card4 {
+  margin: 3px;
+  border-radius: 4px;
 }
 
 .card-container {
   text-align: center;
 }
-.btn-container {
+
+/* .btn-container {
   display: flex;
   flex-direction: column;
   margin: 5px;
-}
+} */
 
 .color-result,
 .higher-result,
@@ -46,6 +58,7 @@ body {
   width: 100px;
   text-align: center;
 }
+
 img {
   margin: 0 auto;
   width: 100px;
@@ -71,16 +84,19 @@ h4 {
 }
 
 .header {
-  font-size: 6rem;
+  font-size: 5rem;
+  color: #fff;
 }
 
 .btn {
   /* margin: 5px; */
+  color: #fff;
   padding: 10px 30px;
-  font-size: 2rem;
+  font-size: 1.75rem;
   border: none;
   cursor: pointer;
   border-radius: 6px;
+  background-color: limegreen;
 }
 
 .btn:hover,

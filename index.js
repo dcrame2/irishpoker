@@ -42,10 +42,9 @@ document.querySelector(".red").addEventListener("click", function () {
         data.cards[0].suit === "HEARTS" ||
         data.cards[0].suit === "DIAMONDS"
       ) {
-        document.querySelector(".color-result").innerText =
-          "You won by choosing red! Select a player to take 2 drinks!";
+        document.querySelector(".color-result").innerText = "WON";
       } else {
-        document.querySelector(".color-result").innerText = "YOU LOST! Drink 2";
+        document.querySelector(".color-result").innerText = "LOST";
       }
       player1Cards.push(convertToNum(data.cards[0].value));
       console.log(player1Cards);
@@ -65,10 +64,9 @@ document.querySelector(".black").addEventListener("click", function () {
     .then((data) => {
       console.log(data);
       if (data.cards[0].suit === "SPADES" || data.cards[0].suit === "CLUBS") {
-        document.querySelector(".color-result").innerText =
-          "You won by choosing black! Select a player to take 2 drinks!";
+        document.querySelector(".color-result").innerText = "WON";
       } else {
-        document.querySelector(".color-result").innerText = "YOU LOST! Drink 2";
+        document.querySelector(".color-result").innerText = "LOST";
       }
       player1Cards.push(convertToNum(data.cards[0].value));
       console.log(player1Cards);
@@ -88,11 +86,9 @@ document.querySelector(".higher").addEventListener("click", function () {
       console.log(data);
 
       if (player1Cards[0] < convertToNum(data.cards[0].value)) {
-        document.querySelector(".higher-result").innerText =
-          "You won by chosing higher! Select a player to take 4 drinks!";
+        document.querySelector(".higher-result").innerText = "WON";
       } else {
-        document.querySelector(".higher-result").innerText =
-          "YOU LOST! Drink 4!";
+        document.querySelector(".higher-result").innerText = "LOST";
       }
 
       player1Cards.push(convertToNum(data.cards[0].value));
@@ -113,11 +109,9 @@ document.querySelector(".lower").addEventListener("click", function () {
       console.log(data);
 
       if (player1Cards[0] > convertToNum(data.cards[0].value)) {
-        document.querySelector(".higher-result").innerText =
-          "You won by chosing lower! Select a player to take 4 drinks!";
+        document.querySelector(".higher-result").innerText = "WIN";
       } else {
-        document.querySelector(".higher-result").innerText =
-          "YOU LOST! Drink 4!";
+        document.querySelector(".higher-result").innerText = "LOST";
       }
       player1Cards.push(convertToNum(data.cards[0].value));
       console.log(player1Cards);
@@ -139,10 +133,9 @@ document.querySelector(".in").addEventListener("click", function () {
       const card1 = player1Cards[0];
       const card2 = player1Cards[1];
       if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-        document.querySelector(".in-result").innerText =
-          "You won by chosing in! Select a player to take 6 drinks!";
+        document.querySelector(".in-result").innerText = "WIN";
       } else {
-        document.querySelector(".in-result").innerText = "YOU LOST! Drink 6!";
+        document.querySelector(".in-result").innerText = "LOST";
       }
 
       player1Cards.push(convertToNum(data.cards[0].value));
@@ -168,10 +161,9 @@ document.querySelector(".out").addEventListener("click", function () {
       const card2 = player1Cards[1];
 
       if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-        document.querySelector(".in-result").innerText =
-          "You won by chosing out! Select a player to take 6 drinks!";
+        document.querySelector(".in-result").innerText = "WIN";
       } else {
-        document.querySelector(".in-result").innerText = "YOU LOST! Drink 6!";
+        document.querySelector(".in-result").innerText = "LOST";
       }
 
       player1Cards.push(convertToNum(data.cards[0].value));
@@ -193,10 +185,9 @@ document.querySelector(".diamonds").addEventListener("click", function () {
       // let chosenSuit = document.querySelector(".suit").value;
 
       if (data.cards[0].suit === "DIAMONDS") {
-        document.querySelector(".suit-result").innerText =
-          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+        document.querySelector(".suit-result").innerText = "WIN";
       } else {
-        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result").innerText = "LOST";
       }
 
       player1Cards.push(convertToNum(data.cards[0].value));
@@ -219,10 +210,9 @@ document.querySelector(".spades").addEventListener("click", function () {
       // let chosenSuit = document.querySelector(".suit").value;
 
       if (data.cards[0].suit === "SPADES") {
-        document.querySelector(".suit-result").innerText =
-          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+        document.querySelector(".suit-result").innerText = "WIN";
       } else {
-        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result").innerText = "LOST";
       }
 
       player1Cards.push(convertToNum(data.cards[0].value));
@@ -244,10 +234,9 @@ document.querySelector(".hearts").addEventListener("click", function () {
       console.log(data);
 
       if (data.cards[0].suit === "HEARTS") {
-        document.querySelector(".suit-result").innerText =
-          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+        document.querySelector(".suit-result").innerText = "WIN";
       } else {
-        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result").innerText = "LOST";
       }
 
       player1Cards.push(convertToNum(data.cards[0].value));
@@ -269,10 +258,9 @@ document.querySelector(".clubs").addEventListener("click", function () {
       console.log(data);
 
       if (data.cards[0].suit === "CLUBS") {
-        document.querySelector(".suit-result").innerText =
-          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+        document.querySelector(".suit-result").innerText = "WIN";
       } else {
-        document.querySelector(".suit-result").innerText = "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result").innerText = "LOST";
       }
 
       player1Cards.push(convertToNum(data.cards[0].value));
@@ -347,11 +335,9 @@ document.querySelector(".red-2").addEventListener("click", function () {
         data.cards[0].suit === "HEARTS" ||
         data.cards[0].suit === "DIAMONDS"
       ) {
-        document.querySelector(".color-result-2").innerText =
-          "You won by choosing red! Select a player to take 2 drinks!";
+        document.querySelector(".color-result-2").innerText = "WIN";
       } else {
-        document.querySelector(".color-result-2").innerText =
-          "YOU LOST! Drink 2";
+        document.querySelector(".color-result-2").innerText = "LOST";
       }
       player2Cards.push(convertToNum(data.cards[0].value));
       console.log(player2Cards);
@@ -371,11 +357,9 @@ document.querySelector(".black-2").addEventListener("click", function () {
     .then((data) => {
       console.log(data);
       if (data.cards[0].suit === "SPADES" || data.cards[0].suit === "CLUBS") {
-        document.querySelector(".color-result-2").innerText =
-          "You won by choosing black! Select a player to take 2 drinks!";
+        document.querySelector(".color-result-2").innerText = "WON";
       } else {
-        document.querySelector(".color-result-2").innerText =
-          "YOU LOST! Drink 2";
+        document.querySelector(".color-result-2").innerText = "LOST";
       }
       player2Cards.push(convertToNum(data.cards[0].value));
       console.log(player2Cards);
@@ -395,11 +379,9 @@ document.querySelector(".higher-2").addEventListener("click", function () {
       console.log(data);
 
       if (player2Cards[0] < convertToNum(data.cards[0].value)) {
-        document.querySelector(".higher-result-2").innerText =
-          "You won by chosing higher! Select a player to take 4 drinks!";
+        document.querySelector(".higher-result-2").innerText = "WIN";
       } else {
-        document.querySelector(".higher-result-2").innerText =
-          "YOU LOST! Drink 4!";
+        document.querySelector(".higher-result-2").innerText = "LOST";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -420,11 +402,9 @@ document.querySelector(".lower-2").addEventListener("click", function () {
       console.log(data);
 
       if (player2Cards[0] > convertToNum(data.cards[0].value)) {
-        document.querySelector(".higher-result-2").innerText =
-          "You won by chosing lower! Select a player to take 4 drinks!";
+        document.querySelector(".higher-result-2").innerText = "WON";
       } else {
-        document.querySelector(".higher-result-2").innerText =
-          "YOU LOST! Drink 4!";
+        document.querySelector(".higher-result-2").innerText = "LOST";
       }
       player2Cards.push(convertToNum(data.cards[0].value));
       console.log(player2Cards);
@@ -449,10 +429,9 @@ document.querySelector(".in-2").addEventListener("click", function () {
       const card1 = player2Cards[0];
       const card2 = player2Cards[1];
       if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-        document.querySelector(".in-result-2").innerText =
-          "You won by chosing in! Select a player to take 6 drinks!";
+        document.querySelector(".in-result-2").innerText = "WON";
       } else {
-        document.querySelector(".in-result-2").innerText = "YOU LOST! Drink 6!";
+        document.querySelector(".in-result-2").innerText = "LOST";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -478,10 +457,9 @@ document.querySelector(".out-2").addEventListener("click", function () {
       const card2 = player2Cards[1];
 
       if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-        document.querySelector(".in-result-2").innerText =
-          "You won by chosing out! Select a player to take 6 drinks!";
+        document.querySelector(".in-result-2").innerText = "WON";
       } else {
-        document.querySelector(".in-result-2").innerText = "YOU LOST! Drink 6!";
+        document.querySelector(".in-result-2").innerText = "LOST";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -503,11 +481,9 @@ document.querySelector(".diamonds-2").addEventListener("click", function () {
       // let chosenSuit = document.querySelector(".suit").value;
 
       if (data.cards[0].suit === "DIAMONDS") {
-        document.querySelector(".suit-result-2").innerText =
-          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+        document.querySelector(".suit-result-2").innerText = "WON";
       } else {
-        document.querySelector(".suit-result-2").innerText =
-          "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result-2").innerText = "LOST";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -530,11 +506,9 @@ document.querySelector(".spades-2").addEventListener("click", function () {
       // let chosenSuit = document.querySelector(".suit").value;
 
       if (data.cards[0].suit === "SPADES") {
-        document.querySelector(".suit-result-2").innerText =
-          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+        document.querySelector(".suit-result-2").innerText = "WON";
       } else {
-        document.querySelector(".suit-result-2").innerText =
-          "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result-2").innerText = "LOST";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -556,11 +530,9 @@ document.querySelector(".hearts-2").addEventListener("click", function () {
       console.log(data);
 
       if (data.cards[0].suit === "HEARTS") {
-        document.querySelector(".suit-result-2").innerText =
-          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+        document.querySelector(".suit-result-2").innerText = "WON";
       } else {
-        document.querySelector(".suit-result-2").innerText =
-          "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result-2").innerText = "LOST";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
@@ -582,11 +554,9 @@ document.querySelector(".clubs-2").addEventListener("click", function () {
       console.log(data);
 
       if (data.cards[0].suit === "CLUBS") {
-        document.querySelector(".suit-result-2").innerText =
-          "You won by chosing the correct suit! Select a player to take 8 drinks!";
+        document.querySelector(".suit-result-2").innerText = "WON";
       } else {
-        document.querySelector(".suit-result-2").innerText =
-          "YOU LOST! Drink 8!";
+        document.querySelector(".suit-result-2").innerText = "LOST";
       }
 
       player2Cards.push(convertToNum(data.cards[0].value));
