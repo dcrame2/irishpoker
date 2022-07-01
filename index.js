@@ -17,8 +17,6 @@ fetch(url)
 //PLAY GAME
 document.querySelector(".play").addEventListener("click", function () {
   document.querySelector(".game-container").classList.toggle("hidden");
-  // document.querySelector(".game-start-container").classList.toggle("hidden");
-  // document.querySelector(".header").innerText = "Player 1: Your Turn!";
 });
 
 //PLAYER COUNT
@@ -36,7 +34,6 @@ document.querySelector(".red").addEventListener("click", function () {
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
-      // const chosenColor = document.querySelector(".color").value;
       console.log(data);
       if (
         data.cards[0].suit === "HEARTS" ||
@@ -57,8 +54,6 @@ document.querySelector(".red").addEventListener("click", function () {
 
 //BLACK
 document.querySelector(".black").addEventListener("click", function () {
-  //   prompt("Is card red or black?");
-
   fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
@@ -154,8 +149,6 @@ document.querySelector(".out").addEventListener("click", function () {
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
       console.log(data);
-      // const chosenInOut = document.querySelector(".in-out").value;
-      // console.log(chosenInOut);
       const num = convertToNum(data.cards[0].value);
       const card1 = player1Cards[0];
       const card2 = player1Cards[1];
@@ -182,7 +175,6 @@ document.querySelector(".diamonds").addEventListener("click", function () {
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
       console.log(data);
-      // let chosenSuit = document.querySelector(".suit").value;
 
       if (data.cards[0].suit === "DIAMONDS") {
         document.querySelector(".suit-result").innerText = "WIN";
@@ -192,7 +184,6 @@ document.querySelector(".diamonds").addEventListener("click", function () {
 
       player1Cards.push(convertToNum(data.cards[0].value));
       console.log(player1Cards);
-      //   document.querySelector(".player1").src = data.cards[0].image;
 
       document.querySelector(".p1-card4").src = data.cards[0].image;
     })
