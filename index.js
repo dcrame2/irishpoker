@@ -175,7 +175,7 @@ document.querySelector(".diamonds").addEventListener("click", function () {
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
       console.log(data);
-
+      // yooooooo
       if (data.cards[0].suit === "DIAMONDS") {
         document.querySelector(".suit-result").innerText = "WIN";
       } else {
