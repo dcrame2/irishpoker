@@ -176,6 +176,7 @@ document.querySelector(".diamonds").addEventListener("click", function () {
     .then((data) => {
       console.log(data);
       // yooooooo
+      //suppp
       if (data.cards[0].suit === "DIAMONDS") {
         document.querySelector(".suit-result").innerText = "WIN";
       } else {
