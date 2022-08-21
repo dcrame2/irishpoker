@@ -16,22 +16,81 @@
       <h1 class="header">🍀Irish Poker🍀</h1>
 
       <div class="game-start-container">
-      <button class="play btn">Play</button>
+      <!-- <button class="play btn">Play</button> -->
       <button class="players btn">Player Count</button>
       <button class="rules btn">Rules</button>
     </div>
     </div>
 
 
-    <div class="players-modal hidden">    
-      <label for="players">Number of Players</label>
-      <hr>
-      <button class="player-1 player-select">1</button>
-      <button class="player-2 player-select">2</button>
-      <button class="player-3 player-select">3</button>
-      <button class="player-4 player-select">4</button>
-      <button class="player-5 player-select">5</button>
-      <button class="player-6 player-select">6</button>
+    <div class="outcome-container hidden">
+      <div class="outcome-inner-container">
+        <h2 class="won-lost"></h2>
+        <div class="outcome-player-container">
+        <p>Select a player to drink X seconds:</p>
+        <div class="outcome-player-inner-container">
+          <button class="p1-drinks btn player1-name-btn"></button>
+          <button class="p2-drinks btn player2-name-btn"></button>
+          <button class="p3-drinks btn player3-name-btn"></button>
+          <button class="p4-drinks btn player4-name-btn"></button>
+          <button class="p5-drinks btn player5-name-btn"></button>
+          <button class="p6-drinks btn player6-name-btn"></button>
+        </div>
+      </div>
+      </div>
+
+    </div>
+
+
+    <div class="players-modal hidden">   
+      <div class="num-of-players-container" >
+        <label for="players">Number of Players</label>
+        <hr>
+        
+        <button class="player-1 btn player-select">1</button>
+      
+        <button class="player-2  btn player-select">2</button>
+        <button class="player-3 btn player-select">3</button>
+        <button class="player-4 btn player-select">4</button>
+        <button class="player-5 btn player-select">5</button>
+        <button class="player-6 btn player-select">6</button>
+
+      </div>
+
+      <form class="players-form hidden">
+        <h2>Enter Players Name: </h2>
+        <div class="player1-form">
+          <label for="">Player 1 Name: </label>
+          <input class='player-1-name' type="text">
+        </div>
+
+        <div class="player2-form hidden">
+          <label for="">Player 2 Name: </label>
+          <input class='player-2-name' type="text">
+        </div>
+
+        <div class="player3-form hidden">
+          <label for="">Player 3 Name: </label>
+          <input  class='player-3-name' type="text">
+        </div>
+
+        <div class="player4-form hidden">
+          <label for="">Player 4 Name: </label>
+          <input class='player-4-name' type="text">
+        </div>
+
+        <div class="player5-form hidden">
+          <label for="">Player 5 Name: </label>
+          <input class='player-5-name' type="text">
+        </div>
+
+        <div class="player6-form hidden">
+          <label for="">Player 6 Name: </label>
+          <input class='player-6-name' type="text">
+        </div>
+
+        <button class="submit-form">Play</button>
+      </form>
     </div>
 
     <div class="rules-container hidden">  
@@ -59,12 +118,10 @@
 
    </div>
     <section class="game-container hidden">
-     
+      
 
       <div class="player1">
-       
-          <h2>P1.</h2>
-    
+        <h2 class="player1-name"></h2>
       <div class="card-container">
         <img class="p1-card1" src="/img/green_card.png" alt="playing card" />
         <div class="btn-container">
@@ -111,7 +168,7 @@
 
 <!-- PLAYER 2 -->
 <div class="player2">
-  <h2>P2.</h2>
+  <h2 class="player2-name"></h2>
   <div class="card-container">
       <img class="p2-card1" src="/img/green_card.png" alt="playing card" />
       <div class="btn-container">
@@ -154,6 +211,196 @@
     </div>
     </div>
     </div>
+
+
+
+  <!-- PLAYER 3 -->
+<div class="player3">
+  <h2 class="player3-name"></h2>
+  <div class="card-container">
+      <img class="p3-card1" src="/img/green_card.png" alt="playing card" />
+      <div class="btn-container">
+      <button class="red-3 btn-select">Red</button>
+      <button class="black-3 btn-select">Black</button>
+    
+      <h4 class="color-result-3"></h4>
+    </div>
+    </div>
+    <div class="card-container">
+      <img class="p3-card2" src="/img/green_card.png" alt="playing card" />
+      <div class="btn-container">
+        <button class="lower-3 btn-select">Lower</button>
+        <button class="higher-3 btn-select">Higher</button>
+    
+        <h4 class="higher-result-3"></h4>
+      </div>
+    </div>
+    <div class="card-container">
+      <img class="p3-card3" src="/img/green_card.png" alt="playing card" />
+    
+      <div class="btn-container">
+      <button class="in-3 btn-select">In</button>
+      <button class="out-3 btn-select">Out</button>
+    
+      <h4 class="in-result-3"></h4>
+    </div>
+    </div>
+    <div class="card-container">
+      <img class="p3-card4" src="/img/green_card.png" alt="playing card" />
+      
+
+      <div class="btn-container">
+      <button class="diamonds-3 btn-select">Diamonds</button>
+      <button class="spades-3 btn-select">Spades</button>
+      <button class="clubs-3 btn-select">Clubs</button>
+      <button class="hearts-3 btn-select">Hearts</button>
+    
+      <h4 class="suit-result-3"></h4>
+    </div>
+    </div>
+    </div>
+
+<!-- Player 4 -->
+    <div class="player4">
+      <h2 class="player4-name"></h2>
+      <div class="card-container">
+          <img class="p4-card1" src="/img/green_card.png" alt="playing card" />
+          <div class="btn-container">
+          <button class="red-4 btn-select">Red</button>
+          <button class="black-4 btn-select">Black</button>
+        
+          <h4 class="color-result-4"></h4>
+        </div>
+        </div>
+        <div class="card-container">
+          <img class="p4-card2" src="/img/green_card.png" alt="playing card" />
+          <div class="btn-container">
+            <button class="lower-4 btn-select">Lower</button>
+            <button class="higher-4 btn-select">Higher</button>
+        
+            <h4 class="higher-result-4"></h4>
+          </div>
+        </div>
+        <div class="card-container">
+          <img class="p4-card3" src="/img/green_card.png" alt="playing card" />
+        
+          <div class="btn-container">
+          <button class="in-4 btn-select">In</button>
+          <button class="out-4 btn-select">Out</button>
+        
+          <h4 class="in-result-4"></h4>
+        </div>
+        </div>
+        <div class="card-container">
+          <img class="p4-card4" src="/img/green_card.png" alt="playing card" />
+          
+    
+          <div class="btn-container">
+          <button class="diamonds-4 btn-select">Diamonds</button>
+          <button class="spades-4 btn-select">Spades</button>
+          <button class="clubs-4 btn-select">Clubs</button>
+          <button class="hearts-4 btn-select">Hearts</button>
+        
+          <h4 class="suit-result-4"></h4>
+        </div>
+        </div>
+        </div>
+
+<!-- Player 5 -->
+        <div class="player5">
+          <h2 class="player5-name"></h2>
+          <div class="card-container">
+              <img class="p5-card1" src="/img/green_card.png" alt="playing card" />
+              <div class="btn-container">
+              <button class="red-5 btn-select">Red</button>
+              <button class="black-5 btn-select">Black</button>
+            
+              <h4 class="color-result-5"></h4>
+            </div>
+            </div>
+            <div class="card-container">
+              <img class="p5-card2" src="/img/green_card.png" alt="playing card" />
+              <div class="btn-container">
+                <button class="lower-5 btn-select">Lower</button>
+                <button class="higher-5 btn-select">Higher</button>
+            
+                <h4 class="higher-result-5"></h4>
+              </div>
+            </div>
+            <div class="card-container">
+              <img class="p5-card3" src="/img/green_card.png" alt="playing card" />
+            
+              <div class="btn-container">
+              <button class="in-5 btn-select">In</button>
+              <button class="out-5 btn-select">Out</button>
+            
+              <h4 class="in-result-5"></h4>
+            </div>
+            </div>
+            <div class="card-container">
+              <img class="p5-card4" src="/img/green_card.png" alt="playing card" />
+              
+        
+              <div class="btn-container">
+              <button class="diamonds-5 btn-select">Diamonds</button>
+              <button class="spades-5 btn-select">Spades</button>
+              <button class="clubs-5 btn-select">Clubs</button>
+              <button class="hearts-5 btn-select">Hearts</button>
+            
+              <h4 class="suit-result-5"></h4>
+            </div>
+            </div>
+            </div>
+
+
+        <!-- Player 6 -->
+        <div class="player6">
+          <h2 class="player6-name"></h2>
+          <div class="card-container">
+              <img class="p6-card1" src="/img/green_card.png" alt="playing card" />
+              <div class="btn-container">
+              <button class="red-6 btn-select">Red</button>
+              <button class="black-6 btn-select">Black</button>
+            
+             
+            </div>
+            </div>
+            <div class="card-container">
+              <img class="p6-card2" src="/img/green_card.png" alt="playing card" />
+              <div class="btn-container">
+                <button class="lower-6 btn-select">Lower</button>
+                <button class="higher-6 btn-select">Higher</button>
+            
+                <h4 class="higher-result-6"></h4>
+              </div>
+            </div>
+            <div class="card-container">
+              <img class="p6-card3" src="/img/green_card.png" alt="playing card" />
+            
+              <div class="btn-container">
+              <button class="in-6 btn-select">In</button>
+              <button class="out-6 btn-select">Out</button>
+            
+              <h4 class="in-result-6"></h4>
+            </div>
+            </div>
+            <div class="card-container">
+              <img class="p6-card4" src="/img/green_card.png" alt="playing card" />
+              
+        
+              <div class="btn-container">
+              <button class="diamonds-6 btn-select">Diamonds</button>
+              <button class="spades-6 btn-select">Spades</button>
+              <button class="clubs-6 btn-select">Clubs</button>
+              <button class="hearts-4 btn-select">Hearts</button>
+            
+              <h4 class="suit-result-6"></h4>
+            </div>
+            </div>
+            </div>
+
+
+           
 
   </div>
 

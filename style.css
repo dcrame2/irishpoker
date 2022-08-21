@@ -16,12 +16,17 @@ body {
   /*******************************************/
 
 .player1,
-.player2 {
+.player2,
+.player3,
+.player4,
+.player5,
+.player6 {
   display: flex;
   flex-direction: row;
-  margin: 100px;
-  border: 1px solid limegreen;
+  /* margin: 5px; */
+  /* border: 1px solid limegreen; */
   padding: 10px;
+  width: 800px;
 }
 
 .btn-select {
@@ -36,9 +41,27 @@ body {
 .p2-card1,
 .p2-card2,
 .p2-card3,
-.p2-card4 {
+.p2-card4,
+.p3-card1,
+.p3-card2,
+.p3-card3,
+.p3-card4,
+.p4-card1,
+.p4-card2,
+.p4-card3,
+.p4-card4,
+.p5-card1,
+.p5-card2,
+.p5-card3,
+.p5-card4,
+.p6-card1,
+.p6-card2,
+.p6-card3,
+.p6-card4 {
   margin: 3px;
   border-radius: 4px;
+  width: 175px;
+  height: 225px;
 }
 
 .card-container {
@@ -73,6 +96,7 @@ h4 {
   align-items: center;
   justify-content: center;
   height: 50vh;
+  flex-wrap: wrap;
 }
 
 .game-container.hidden {
@@ -109,17 +133,18 @@ h4 {
   display: none;
 }
 
-.players-modal {
+.players-modal,
+.outcome-container {
   position: absolute;
   font-size: 2.5rem;
   text-align: center;
-  background-color: white;
+  background-color: #fff;
   height: 500px;
   width: 600px;
-  top: 60%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ccc;
+  /* background-color: #ccc; */
   border-radius: 6px;
 
   /* margin: 0 auto; */
@@ -139,13 +164,13 @@ h4 {
   border-radius: 6px;
 }
 
-.player-select {
+/* .player-select {
   padding: 5px 20px;
   font-size: 2rem;
   border-radius: 6px;
   border: none;
   cursor: pointer;
-}
+} */
 
 .players-modal.hidden,
 .rules-container.hidden {
