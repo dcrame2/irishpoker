@@ -237,24 +237,36 @@ const playerMustDrinkWinner = (x) => {
   });
 
   document.querySelector(".p3-drinks").addEventListener("click", () => {
+    document
+      .querySelector(".player-who-drinks-container")
+      .classList.remove("hidden");
     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
       document.querySelector(".player3-name").innerText
     } has to drink for ${x} seconds</p>`;
   });
 
   document.querySelector(".p4-drinks").addEventListener("click", () => {
+    document
+      .querySelector(".player-who-drinks-container")
+      .classList.remove("hidden");
     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
       document.querySelector(".player4-name").innerText
     } has to drink for ${x} seconds</p>`;
   });
 
   document.querySelector(".p5-drinks").addEventListener("click", () => {
+    document
+      .querySelector(".player-who-drinks-container")
+      .classList.remove("hidden");
     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
       document.querySelector(".player5-name").innerText
     } has to drink for ${x} seconds</p>`;
   });
 
   document.querySelector(".p6-drinks").addEventListener("click", () => {
+    document
+      .querySelector(".player-who-drinks-container")
+      .classList.remove("hidden");
     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
       document.querySelector(".player6-name").innerText
     } has to drink for ${x} seconds</p>`;
@@ -1550,10 +1562,8 @@ function threePlayers() {
             lost(x);
             p1FourthCard();
           }
-
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -1580,10 +1590,8 @@ function threePlayers() {
             lost(x);
             p1FourthCard();
           }
-
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -1896,7 +1904,7 @@ function fourPlayers() {
             p2FourthCard();
           } else {
             player2UpNext();
-            lost();
+            lost(x);
             p2FourthCard();
           }
 
@@ -1916,22 +1924,17 @@ function fourPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // let chosenSuit = document.querySelector(".suit").value;
-
           if (data.cards[0].suit === "SPADES") {
             player2UpNext();
             won(x);
             p2FourthCard();
           } else {
             player2UpNext();
-            lost();
+            lost(x);
             p2FourthCard();
           }
-
           player1Cards.push(convertToNum(data.cards[0].value));
           console.log(player1Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p1-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -1952,14 +1955,12 @@ function fourPlayers() {
             p2FourthCard();
           } else {
             player2UpNext();
-            lost();
+            lost(x);
             p2FourthCard();
           }
 
           player1Cards.push(convertToNum(data.cards[0].value));
           console.log(player1Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p1-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -1980,7 +1981,7 @@ function fourPlayers() {
             p2FourthCard();
           } else {
             player2UpNext();
-            lost();
+            lost(x);
             p2FourthCard();
           }
 
@@ -1997,6 +1998,7 @@ function fourPlayers() {
   };
 
   const p2FirstCard = async () => {
+    let x = 2;
     document.querySelector(".red-2").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -2007,13 +2009,14 @@ function fourPlayers() {
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player3UpNext();
+            won(x);
             p3FirstCard();
             // p1SecondCard();
           } else {
-            // document.querySelector(".color-result-2").innerText = "LOST";
+            player3UpNext();
             p3FirstCard();
-            lost();
+            lost(x);
           }
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
@@ -2036,14 +2039,13 @@ function fourPlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            // document.querySelector(".color-result-2").innerText = "WON";
-            won();
-
+            player3UpNext();
+            won(x);
             p3FirstCard();
           } else {
-            // document.querySelector(".color-result-2").innerText = "LOST";
-            lost();
+            player3UpNext();
             p3FirstCard();
+            lost(x);
           }
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
@@ -2058,6 +2060,7 @@ function fourPlayers() {
 
   //HIGHER
   const p2SecondCard = async () => {
+    let x = 4;
     document.querySelector(".higher-2").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -2065,12 +2068,12 @@ function fourPlayers() {
           console.log(data);
 
           if (player2Cards[0] < convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-2").innerText = "WIN";
-            won();
+            player3UpNext();
+            won(x);
             p3SecondCard();
           } else {
-            // document.querySelector(".higher-result-2").innerText = "LOST";
-            lost();
+            player3UpNext();
+            lost(x);
             p3SecondCard();
           }
 
@@ -2090,19 +2093,17 @@ function fourPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (player2Cards[0] > convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-2").innerText = "WON";
-            won();
+            player3UpNext();
+            won(x);
             p3SecondCard();
           } else {
-            // document.querySelector(".higher-result-2").innerText = "LOST";
-            lost();
+            player3UpNext();
+            lost(x);
             p3SecondCard();
           }
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
-
           document.querySelector(".p2-card2").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -2114,24 +2115,22 @@ function fourPlayers() {
   //IN
 
   const p2ThirdCard = async () => {
+    let x = 6;
     document.querySelector(".in-2").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player2Cards[0];
           const card2 = player2Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
             p3ThirdCard();
-            // document.querySelector(".in-result-2").innerText = "WON";
-            won();
+            player3UpNext();
+            won(x);
           } else {
-            // document.querySelector(".in-result-2").innerText = "LOST";
-            lost();
+            player3UpNext();
+            lost(x);
             p3ThirdCard();
           }
 
@@ -2151,25 +2150,21 @@ function fourPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
           const num = convertToNum(data.cards[0].value);
           const card1 = player2Cards[0];
           const card2 = player2Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            // document.querySelector(".in-result-2").innerText = "WON";
-            won();
             p3ThirdCard();
+            player3UpNext();
+            won(x);
           } else {
-            // document.querySelector(".in-result-2").innerText = "LOST";
-            lost();
+            player3UpNext();
+            lost(x);
             p3ThirdCard();
           }
-
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
-
           document.querySelector(".p2-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -2179,6 +2174,7 @@ function fourPlayers() {
   };
 
   const p2FourthCard = async () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-2")
@@ -2187,22 +2183,17 @@ function fourPlayers() {
           .then((res) => res.json()) // parse response as JSON
           .then((data) => {
             console.log(data);
-            // let chosenSuit = document.querySelector(".suit").value;
-
             if (data.cards[0].suit === "DIAMONDS") {
-              // document.querySelector(".suit-result-2").innerText = "WON";
+              player3UpNext();
               p3FourthCard();
-              won();
+              won(x);
             } else {
-              // document.querySelector(".suit-result-2").innerText = "LOST";
+              player3UpNext();
               p3FourthCard();
-              lost();
+              lost(x);
             }
-
             player2Cards.push(convertToNum(data.cards[0].value));
             console.log(player2Cards);
-            //   document.querySelector(".player1").src = data.cards[0].image;
-
             document.querySelector(".p2-card4").src = data.cards[0].image;
           })
           .catch((err) => {
@@ -2216,16 +2207,14 @@ function fourPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // let chosenSuit = document.querySelector(".suit").value;
-
           if (data.cards[0].suit === "SPADES") {
-            // document.querySelector(".suit-result-2").innerText = "WON";
+            player3UpNext();
             p3FourthCard();
-            won();
+            won(x);
           } else {
-            // document.querySelector(".suit-result-2").innerText = "LOST";
+            player3UpNext();
             p3FourthCard();
-            lost();
+            lost(x);
           }
 
           player2Cards.push(convertToNum(data.cards[0].value));
@@ -2245,21 +2234,17 @@ function fourPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "HEARTS") {
-            // document.querySelector(".suit-result-2").innerText = "WON";
+            player3UpNext();
             p3FourthCard();
-            won();
+            won(x);
           } else {
-            // document.querySelector(".suit-result-2").innerText = "LOST";
+            player3UpNext();
             p3FourthCard();
-            lost();
+            lost(x);
           }
-
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p2-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -2275,13 +2260,13 @@ function fourPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
+            player3UpNext();
             p3FourthCard();
-            // document.querySelector(".suit-result-2").innerText = "WON";
-            won();
+            won(x);
           } else {
-            // document.querySelector(".suit-result-2").innerText = "LOST";
+            player3UpNext();
             p3FourthCard();
-            lost();
+            lost(x);
           }
 
           player2Cards.push(convertToNum(data.cards[0].value));
@@ -2297,23 +2282,23 @@ function fourPlayers() {
   };
 
   const p3FirstCard = () => {
+    let x = 2;
     //PLAYER 3
     document.querySelector(".red-3").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
-          // const chosenColor = document.querySelector(".color").value;
           console.log(data);
           if (
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            // document.querySelector(".color-result-3").innerText = "WIN";
-            won();
+            player4UpNext();
+            won(x);
             p4FirstCard();
           } else {
-            // document.querySelector(".color-result-3").innerText = "LOST";
-            lost();
+            player4UpNext();
+            lost(x);
             p4FirstCard();
           }
           player3Cards.push(convertToNum(data.cards[0].value));
@@ -2337,12 +2322,12 @@ function fourPlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            // document.querySelector(".color-result-3").innerText = "WON";
-            won();
+            player4UpNext();
+            won(x);
             p4FirstCard();
           } else {
-            // document.querySelector(".color-result-3").innerText = "LOST";
-            lost();
+            player4UpNext();
+            lost(x);
             p4FirstCard();
           }
           player3Cards.push(convertToNum(data.cards[0].value));
@@ -2357,6 +2342,7 @@ function fourPlayers() {
   };
 
   const p3SecondCard = () => {
+    let x = 4;
     //HIGHER
     document.querySelector(".higher-3").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -2365,13 +2351,13 @@ function fourPlayers() {
           console.log(data);
 
           if (player3Cards[0] < convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-3").innerText = "WIN";
-            won();
+            player4UpNext();
+            won(x);
             p4SecondCard();
           } else {
-            // document.querySelector(".higher-result-3").innerText = "LOST";
+            player4UpNext();
             p4SecondCard();
-            lost();
+            lost(x);
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
@@ -2392,13 +2378,13 @@ function fourPlayers() {
           console.log(data);
 
           if (player3Cards[0] > convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-3").innerText = "WON";
-            won();
+            player4UpNext();
+            won(x);
             p4SecondCard();
           } else {
-            // document.querySelector(".higher-result-3").innerText = "LOST";
-            lost();
+            player4UpNext();
             p4SecondCard();
+            lost(x);
           }
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
@@ -2412,25 +2398,23 @@ function fourPlayers() {
   };
 
   const p3ThirdCard = () => {
+    let x = 6;
     //IN
     document.querySelector(".in-3").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player3Cards[0];
           const card2 = player3Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            // document.querySelector(".in-result-3").innerText = "WON";
-            won();
+            player4UpNext();
+            won(x);
             p4ThirdCard();
           } else {
-            // document.querySelector(".in-result-3").innerText = "LOST";
-            lost();
+            player4UpNext();
+            lost(x);
             p4ThirdCard();
           }
 
@@ -2450,25 +2434,20 @@ function fourPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
           const num = convertToNum(data.cards[0].value);
           const card1 = player3Cards[0];
           const card2 = player3Cards[1];
-
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            // document.querySelector(".in-result-3").innerText = "WON";
-            won();
+            player4UpNext();
+            won(x);
             p4ThirdCard();
           } else {
-            // document.querySelector(".in-result-3").innerText = "LOST";
-            lost();
+            player4UpNext();
+            lost(x);
             p4ThirdCard();
           }
-
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -2478,6 +2457,7 @@ function fourPlayers() {
   };
 
   const p3FourthCard = () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-3")
@@ -2486,22 +2466,18 @@ function fourPlayers() {
           .then((res) => res.json()) // parse response as JSON
           .then((data) => {
             console.log(data);
-            // let chosenSuit = document.querySelector(".suit").value;
-
             if (data.cards[0].suit === "DIAMONDS") {
-              // document.querySelector(".suit-result-3").innerText = "WON";
-              won();
+              player4UpNext();
+              won(x);
               p4FourthCard();
             } else {
-              // document.querySelector(".suit-result-3").innerText = "LOST";
-              lost();
+              player4UpNext();
+              lost(x);
               p4FourthCard();
             }
 
             player3Cards.push(convertToNum(data.cards[0].value));
             console.log(player3Cards);
-            //   document.querySelector(".player1").src = data.cards[0].image;
-
             document.querySelector(".p3-card4").src = data.cards[0].image;
           })
           .catch((err) => {
@@ -2515,22 +2491,18 @@ function fourPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // let chosenSuit = document.querySelector(".suit").value;
-
           if (data.cards[0].suit === "SPADES") {
-            // document.querySelector(".suit-result-3").innerText = "WON";
-            won();
+            player4UpNext();
+            won(x);
             p4FourthCard();
           } else {
-            // document.querySelector(".suit-result-3").innerText = "LOST";
+            player4UpNext();
+            lost(x);
             p4FourthCard();
-            lost();
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p3-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -2546,19 +2518,17 @@ function fourPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "HEARTS") {
-            // document.querySelector(".suit-result-3").innerText = "WON";
-            won();
+            player4UpNext();
+            won(x);
             p4FourthCard();
           } else {
-            // document.querySelector(".suit-result-3").innerText = "LOST";
-            lost();
+            player4UpNext();
+            lost(x);
             p4FourthCard();
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p3-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -2574,19 +2544,17 @@ function fourPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
-            // document.querySelector(".suit-result-3").innerText = "WON";
+            player4UpNext();
+            won(x);
             p4FourthCard();
-            won();
           } else {
-            // document.querySelector(".suit-result-3").innerText = "LOST";
+            player4UpNext();
+            lost(x);
             p4FourthCard();
-            lost();
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p3-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -2596,23 +2564,23 @@ function fourPlayers() {
   };
 
   const p4FirstCard = () => {
+    let x = 2;
     document.querySelector(".red-4").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
-          // const chosenColor = document.querySelector(".color").value;
           console.log(data);
           if (
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            // document.querySelector(".color-result-4").innerText = "WIN";
-            won();
+            player1UpNext();
+            won(x);
             p1SecondCard();
           } else {
-            lost();
+            player1UpNext();
+            lost(x);
             p1SecondCard();
-            // document.querySelector(".color-result-4").innerText = "LOST";
           }
           player4Cards.push(convertToNum(data.cards[0].value));
           console.log(player4Cards);
@@ -2635,11 +2603,12 @@ function fourPlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            // document.querySelector(".color-result-4").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1SecondCard();
           } else {
-            // document.querySelector(".color-result-4").innerText = "LOST";
+            player1UpNext();
+            lost(x);
             p1SecondCard();
           }
           player4Cards.push(convertToNum(data.cards[0].value));
@@ -2654,6 +2623,7 @@ function fourPlayers() {
   };
 
   const p4SecondCard = () => {
+    let x = 4;
     //HIGHER
     document.querySelector(".higher-4").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -2662,18 +2632,16 @@ function fourPlayers() {
           console.log(data);
 
           if (player4Cards[0] < convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-4").innerText = "WIN";
-            won();
+            player1UpNext();
+            won(x);
             p1ThirdCard();
           } else {
-            // document.querySelector(".higher-result-4").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1ThirdCard();
           }
-
           player4Cards.push(convertToNum(data.cards[0].value));
           console.log(player4Cards);
-
           document.querySelector(".p4-card2").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -2689,12 +2657,12 @@ function fourPlayers() {
           console.log(data);
 
           if (player4Cards[0] > convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-4").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1ThirdCard();
           } else {
-            // document.querySelector(".higher-result-4").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1ThirdCard();
           }
           player4Cards.push(convertToNum(data.cards[0].value));
@@ -2709,25 +2677,23 @@ function fourPlayers() {
   };
 
   const p4ThirdCard = () => {
+    let x = 6;
     //IN
     document.querySelector(".in-4").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player4Cards[0];
           const card2 = player4Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            // document.querySelector(".in-result-4").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1FourthCard();
           } else {
-            // document.querySelector(".in-result-4").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1FourthCard();
           }
 
@@ -2747,19 +2713,17 @@ function fourPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
           const num = convertToNum(data.cards[0].value);
           const card1 = player4Cards[0];
           const card2 = player4Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            // document.querySelector(".in-result-4").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1FourthCard();
           } else {
-            // document.querySelector(".in-result-4").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1FourthCard();
           }
 
@@ -2775,6 +2739,7 @@ function fourPlayers() {
   };
 
   const p4FourthCard = () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-4")
@@ -2785,9 +2750,11 @@ function fourPlayers() {
             console.log(data);
 
             if (data.cards[0].suit === "DIAMONDS") {
-              won();
+              gameOver();
+              won(x);
             } else {
-              lost();
+              gameOver();
+              lost(x);
             }
 
             player4Cards.push(convertToNum(data.cards[0].value));
@@ -2808,11 +2775,12 @@ function fourPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "SPADES") {
-            won();
+            gameOver();
+            won(x);
           } else {
-            lost();
+            gameOver();
+            lost(x);
           }
-
           player4Cards.push(convertToNum(data.cards[0].value));
           console.log(player4Cards);
 
@@ -2831,9 +2799,11 @@ function fourPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            gameOver();
+            won(x);
           } else {
-            lost();
+            gameOver();
+            lost(x);
           }
 
           player4Cards.push(convertToNum(data.cards[0].value));
@@ -2854,11 +2824,12 @@ function fourPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
-            won();
+            gameOver();
+            won(x);
           } else {
-            lost();
+            gameOver();
+            lost(x);
           }
-
           player4Cards.push(convertToNum(data.cards[0].value));
           console.log(player4Cards);
 
@@ -2875,6 +2846,7 @@ function fourPlayers() {
 
 function fivePlayers() {
   const p1FirstCard = async () => {
+    let x = 2;
     document.querySelector(".red").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -2884,11 +2856,13 @@ function fivePlayers() {
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player2UpNext();
+            won(x);
 
             p2FirstCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FirstCard();
           }
           player1Cards.push(convertToNum(data.cards[0].value));
@@ -2910,10 +2884,12 @@ function fivePlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            won();
+            player2UpNext();
+            won(x);
             p2FirstCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FirstCard();
           }
           player1Cards.push(convertToNum(data.cards[0].value));
@@ -2929,6 +2905,7 @@ function fivePlayers() {
 
   //HIGHER
   const p1SecondCard = async () => {
+    let x = 4;
     document.querySelector(".higher").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -2936,10 +2913,12 @@ function fivePlayers() {
           console.log(data);
 
           if (player1Cards[0] < convertToNum(data.cards[0].value)) {
-            won();
+            player2UpNext();
+            won(x);
             p2SecondCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2SecondCard();
           }
 
@@ -2961,10 +2940,12 @@ function fivePlayers() {
           console.log(data);
 
           if (player1Cards[0] > convertToNum(data.cards[0].value)) {
-            won();
+            player2UpNext();
+            won(x);
             p2SecondCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2SecondCard();
           }
           player1Cards.push(convertToNum(data.cards[0].value));
@@ -2979,6 +2960,7 @@ function fivePlayers() {
   };
 
   const p1ThirdCard = async () => {
+    let x = 6;
     //IN
     document.querySelector(".in").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -2989,10 +2971,12 @@ function fivePlayers() {
           const card1 = player1Cards[0];
           const card2 = player1Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            won();
+            player2UpNext();
+            won(x);
             p2ThirdCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2ThirdCard();
           }
 
@@ -3017,10 +3001,12 @@ function fivePlayers() {
           const card2 = player1Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            won();
+            player2UpNext();
+            won(x);
             p2ThirdCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2ThirdCard();
           }
 
@@ -3043,10 +3029,12 @@ function fivePlayers() {
         .then((data) => {
           console.log(data);
           if (data.cards[0].suit === "DIAMONDS") {
-            won();
+            player2UpNext();
+            won(x);
             p2FourthCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FourthCard();
           }
 
@@ -3066,18 +3054,17 @@ function fivePlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "SPADES") {
-            won();
+            player2UpNext();
+            won(x);
             p2FourthCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FourthCard();
           }
-
           player1Cards.push(convertToNum(data.cards[0].value));
           console.log(player1Cards);
-
           document.querySelector(".p1-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -3093,16 +3080,17 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            player2UpNext();
+            won(x);
             p2FourthCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FourthCard();
           }
 
           player1Cards.push(convertToNum(data.cards[0].value));
           console.log(player1Cards);
-
           document.querySelector(".p1-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -3118,15 +3106,18 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
-            won();
+            player2UpNext();
+            won(x);
             p2FourthCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FourthCard();
           }
 
           player1Cards.push(convertToNum(data.cards[0].value));
           console.log(player1Cards);
+          //   document.querySelector(".player1").src = data.cards[0].image;
 
           document.querySelector(".p1-card4").src = data.cards[0].image;
         })
@@ -3137,20 +3128,25 @@ function fivePlayers() {
   };
 
   const p2FirstCard = async () => {
+    let x = 2;
     document.querySelector(".red-2").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
+          // const chosenColor = document.querySelector(".color").value;
           console.log(data);
           if (
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player3UpNext();
+            won(x);
             p3FirstCard();
+            // p1SecondCard();
           } else {
+            player3UpNext();
             p3FirstCard();
-            lost();
+            lost(x);
           }
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
@@ -3163,6 +3159,8 @@ function fivePlayers() {
 
     //BLACK
     document.querySelector(".black-2").addEventListener("click", function () {
+      //   prompt("Is card red or black?");
+
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
@@ -3171,12 +3169,13 @@ function fivePlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            won();
-
+            player3UpNext();
+            won(x);
             p3FirstCard();
           } else {
-            lost();
+            player3UpNext();
             p3FirstCard();
+            lost(x);
           }
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
@@ -3191,6 +3190,7 @@ function fivePlayers() {
 
   //HIGHER
   const p2SecondCard = async () => {
+    let x = 4;
     document.querySelector(".higher-2").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -3198,10 +3198,12 @@ function fivePlayers() {
           console.log(data);
 
           if (player2Cards[0] < convertToNum(data.cards[0].value)) {
-            won();
+            player3UpNext();
+            won(x);
             p3SecondCard();
           } else {
-            lost();
+            player3UpNext();
+            lost(x);
             p3SecondCard();
           }
 
@@ -3221,17 +3223,17 @@ function fivePlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (player2Cards[0] > convertToNum(data.cards[0].value)) {
-            won();
+            player3UpNext();
+            won(x);
             p3SecondCard();
           } else {
-            lost();
+            player3UpNext();
+            lost(x);
             p3SecondCard();
           }
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
-
           document.querySelector(".p2-card2").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -3243,21 +3245,22 @@ function fivePlayers() {
   //IN
 
   const p2ThirdCard = async () => {
+    let x = 6;
     document.querySelector(".in-2").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player2Cards[0];
           const card2 = player2Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
             p3ThirdCard();
-
-            won();
+            player3UpNext();
+            won(x);
           } else {
-            lost();
+            player3UpNext();
+            lost(x);
             p3ThirdCard();
           }
 
@@ -3277,22 +3280,21 @@ function fivePlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player2Cards[0];
           const card2 = player2Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            won();
             p3ThirdCard();
+            player3UpNext();
+            won(x);
           } else {
-            lost();
+            player3UpNext();
+            lost(x);
             p3ThirdCard();
           }
-
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
-
           document.querySelector(".p2-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -3302,6 +3304,7 @@ function fivePlayers() {
   };
 
   const p2FourthCard = async () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-2")
@@ -3310,18 +3313,17 @@ function fivePlayers() {
           .then((res) => res.json()) // parse response as JSON
           .then((data) => {
             console.log(data);
-
             if (data.cards[0].suit === "DIAMONDS") {
+              player3UpNext();
               p3FourthCard();
-              won();
+              won(x);
             } else {
+              player3UpNext();
               p3FourthCard();
-              lost();
+              lost(x);
             }
-
             player2Cards.push(convertToNum(data.cards[0].value));
             console.log(player2Cards);
-
             document.querySelector(".p2-card4").src = data.cards[0].image;
           })
           .catch((err) => {
@@ -3335,17 +3337,19 @@ function fivePlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "SPADES") {
+            player3UpNext();
             p3FourthCard();
-            won();
+            won(x);
           } else {
+            player3UpNext();
             p3FourthCard();
-            lost();
+            lost(x);
           }
 
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
+          //   document.querySelector(".player1").src = data.cards[0].image;
 
           document.querySelector(".p2-card4").src = data.cards[0].image;
         })
@@ -3360,18 +3364,17 @@ function fivePlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "HEARTS") {
+            player3UpNext();
             p3FourthCard();
-            won();
+            won(x);
           } else {
+            player3UpNext();
             p3FourthCard();
-            lost();
+            lost(x);
           }
-
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
-
           document.querySelector(".p2-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -3387,16 +3390,18 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
+            player3UpNext();
             p3FourthCard();
-
-            won();
+            won(x);
           } else {
+            player3UpNext();
             p3FourthCard();
-            lost();
+            lost(x);
           }
 
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
+          //   document.querySelector(".player1").src = data.cards[0].image;
 
           document.querySelector(".p2-card4").src = data.cards[0].image;
         })
@@ -3407,6 +3412,7 @@ function fivePlayers() {
   };
 
   const p3FirstCard = () => {
+    let x = 2;
     //PLAYER 3
     document.querySelector(".red-3").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -3417,10 +3423,12 @@ function fivePlayers() {
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player4UpNext();
+            won(x);
             p4FirstCard();
           } else {
-            lost();
+            player4UpNext();
+            lost(x);
             p4FirstCard();
           }
           player3Cards.push(convertToNum(data.cards[0].value));
@@ -3434,6 +3442,8 @@ function fivePlayers() {
 
     //BLACK
     document.querySelector(".black-3").addEventListener("click", function () {
+      //   prompt("Is card red or black?");
+
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
@@ -3442,10 +3452,12 @@ function fivePlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            won();
+            player4UpNext();
+            won(x);
             p4FirstCard();
           } else {
-            lost();
+            player4UpNext();
+            lost(x);
             p4FirstCard();
           }
           player3Cards.push(convertToNum(data.cards[0].value));
@@ -3460,6 +3472,7 @@ function fivePlayers() {
   };
 
   const p3SecondCard = () => {
+    let x = 4;
     //HIGHER
     document.querySelector(".higher-3").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -3468,11 +3481,13 @@ function fivePlayers() {
           console.log(data);
 
           if (player3Cards[0] < convertToNum(data.cards[0].value)) {
-            won();
+            player4UpNext();
+            won(x);
             p4SecondCard();
           } else {
+            player4UpNext();
             p4SecondCard();
-            lost();
+            lost(x);
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
@@ -3493,11 +3508,13 @@ function fivePlayers() {
           console.log(data);
 
           if (player3Cards[0] > convertToNum(data.cards[0].value)) {
-            won();
+            player4UpNext();
+            won(x);
             p4SecondCard();
           } else {
-            lost();
+            player4UpNext();
             p4SecondCard();
+            lost(x);
           }
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
@@ -3511,21 +3528,23 @@ function fivePlayers() {
   };
 
   const p3ThirdCard = () => {
+    let x = 6;
     //IN
     document.querySelector(".in-3").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player3Cards[0];
           const card2 = player3Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            won();
+            player4UpNext();
+            won(x);
             p4ThirdCard();
           } else {
-            lost();
+            player4UpNext();
+            lost(x);
             p4ThirdCard();
           }
 
@@ -3545,23 +3564,20 @@ function fivePlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
           const num = convertToNum(data.cards[0].value);
           const card1 = player3Cards[0];
           const card2 = player3Cards[1];
-
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            won();
+            player4UpNext();
+            won(x);
             p4ThirdCard();
           } else {
-            lost();
+            player4UpNext();
+            lost(x);
             p4ThirdCard();
           }
-
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -3571,6 +3587,7 @@ function fivePlayers() {
   };
 
   const p3FourthCard = () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-3")
@@ -3579,18 +3596,18 @@ function fivePlayers() {
           .then((res) => res.json()) // parse response as JSON
           .then((data) => {
             console.log(data);
-
             if (data.cards[0].suit === "DIAMONDS") {
-              won();
+              player4UpNext();
+              won(x);
               p4FourthCard();
             } else {
-              lost();
+              player4UpNext();
+              lost(x);
               p4FourthCard();
             }
 
             player3Cards.push(convertToNum(data.cards[0].value));
             console.log(player3Cards);
-
             document.querySelector(".p3-card4").src = data.cards[0].image;
           })
           .catch((err) => {
@@ -3604,18 +3621,18 @@ function fivePlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "SPADES") {
-            won();
+            player4UpNext();
+            won(x);
             p4FourthCard();
           } else {
+            player4UpNext();
+            lost(x);
             p4FourthCard();
-            lost();
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -3631,16 +3648,17 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            player4UpNext();
+            won(x);
             p4FourthCard();
           } else {
-            lost();
+            player4UpNext();
+            lost(x);
             p4FourthCard();
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -3656,16 +3674,17 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
+            player4UpNext();
+            won(x);
             p4FourthCard();
-            won();
           } else {
+            player4UpNext();
+            lost(x);
             p4FourthCard();
-            lost();
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -3675,6 +3694,7 @@ function fivePlayers() {
   };
 
   const p4FirstCard = () => {
+    let x = 2;
     document.querySelector(".red-4").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -3684,10 +3704,12 @@ function fivePlayers() {
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player5UpNext();
+            won(x);
             p5FirstCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FirstCard();
           }
           player4Cards.push(convertToNum(data.cards[0].value));
@@ -3709,10 +3731,12 @@ function fivePlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            won();
+            player5UpNext();
+            won(x);
             p5FirstCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FirstCard();
           }
           player4Cards.push(convertToNum(data.cards[0].value));
@@ -3727,6 +3751,7 @@ function fivePlayers() {
   };
 
   const p4SecondCard = () => {
+    let x = 4;
     //HIGHER
     document.querySelector(".higher-4").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -3735,10 +3760,12 @@ function fivePlayers() {
           console.log(data);
 
           if (player4Cards[0] < convertToNum(data.cards[0].value)) {
-            won();
+            player5UpNext();
+            won(x);
             p5SecondCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5SecondCard();
           }
 
@@ -3760,10 +3787,10 @@ function fivePlayers() {
           console.log(data);
 
           if (player4Cards[0] > convertToNum(data.cards[0].value)) {
-            won();
+            won(x);
             p5SecondCard();
           } else {
-            lost();
+            lost(x);
             p5SecondCard();
           }
           player4Cards.push(convertToNum(data.cards[0].value));
@@ -3778,6 +3805,7 @@ function fivePlayers() {
   };
 
   const p4ThirdCard = () => {
+    let x = 6;
     //IN
     document.querySelector(".in-4").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -3789,10 +3817,12 @@ function fivePlayers() {
           const card1 = player4Cards[0];
           const card2 = player4Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            won();
+            player5UpNext();
+            won(x);
             p5ThirdCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5ThirdCard();
           }
 
@@ -3818,10 +3848,12 @@ function fivePlayers() {
           const card2 = player4Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            won();
+            player5UpNext();
+            won(x);
             p5ThirdCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5ThirdCard();
           }
 
@@ -3837,6 +3869,7 @@ function fivePlayers() {
   };
 
   const p4FourthCard = () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-4")
@@ -3847,10 +3880,12 @@ function fivePlayers() {
             console.log(data);
 
             if (data.cards[0].suit === "DIAMONDS") {
-              won();
+              player5UpNext();
+              won(x);
               p5FourthCard();
             } else {
-              lost();
+              player5UpNext();
+              lost(x);
               p5FourthCard();
             }
 
@@ -3872,10 +3907,12 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "SPADES") {
-            won();
+            player5UpNext();
+            won(x);
             p5FourthCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FourthCard();
           }
 
@@ -3897,10 +3934,12 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            player5UpNext();
+            won(x);
             p5FourthCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FourthCard();
           }
 
@@ -3922,10 +3961,12 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
-            won();
+            player5UpNext();
+            won(x);
             p5FourthCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FourthCard();
           }
 
@@ -3941,6 +3982,7 @@ function fivePlayers() {
   };
 
   const p5FirstCard = () => {
+    let x = 2;
     document.querySelector(".red-5").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -3950,10 +3992,12 @@ function fivePlayers() {
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player1UpNext();
+            won(x);
             p1SecondCard();
           } else {
-            lost();
+            player1UpNext();
+            lost(x);
             p1SecondCard();
           }
           player5Cards.push(convertToNum(data.cards[0].value));
@@ -3967,8 +4011,6 @@ function fivePlayers() {
 
     //BLACK
     document.querySelector(".black-5").addEventListener("click", function () {
-      //   prompt("Is card red or black?");
-
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
@@ -3977,11 +4019,12 @@ function fivePlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            // document.querySelector(".color-result-5").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1SecondCard();
           } else {
-            // document.querySelector(".color-result-5").innerText = "LOST";
+            player1UpNext();
+            lost(x);
             p1SecondCard();
           }
           player5Cards.push(convertToNum(data.cards[0].value));
@@ -3996,6 +4039,7 @@ function fivePlayers() {
   };
 
   const p5SecondCard = () => {
+    let x = 4;
     //HIGHER
     document.querySelector(".higher-5").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -4004,12 +4048,12 @@ function fivePlayers() {
           console.log(data);
 
           if (player5Cards[0] < convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-5").innerText = "WIN";
-            won();
+            player1UpNext();
+            won(x);
             p1ThirdCard();
           } else {
-            // document.querySelector(".higher-result-5").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1ThirdCard();
           }
 
@@ -4031,12 +4075,12 @@ function fivePlayers() {
           console.log(data);
 
           if (player5Cards[0] > convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-5").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1ThirdCard();
           } else {
-            // document.querySelector(".higher-result-5").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1ThirdCard();
           }
           player5Cards.push(convertToNum(data.cards[0].value));
@@ -4051,6 +4095,7 @@ function fivePlayers() {
   };
 
   const p5ThirdCard = () => {
+    let x = 6;
     //IN
     document.querySelector(".in-5").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -4062,10 +4107,12 @@ function fivePlayers() {
           const card1 = player5Cards[0];
           const card2 = player5Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            won();
+            player1UpNext();
+            won(x);
             p1FourthCard();
           } else {
-            lost();
+            player1UpNext();
+            lost(x);
             p1FourthCard();
           }
 
@@ -4091,10 +4138,12 @@ function fivePlayers() {
           const card2 = player5Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            won();
+            player1UpNext();
+            won(x);
             p1FourthCard();
           } else {
-            lost();
+            player1UpNext();
+            lost(x);
             p1FourthCard();
           }
 
@@ -4110,6 +4159,7 @@ function fivePlayers() {
   };
 
   const p5FourthCard = () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-5")
@@ -4120,9 +4170,11 @@ function fivePlayers() {
             console.log(data);
 
             if (data.cards[0].suit === "DIAMONDS") {
-              won();
+              gameOver();
+              won(x);
             } else {
-              lost();
+              gameOver();
+              lost(x);
             }
 
             player5Cards.push(convertToNum(data.cards[0].value));
@@ -4143,10 +4195,11 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "SPADES") {
-            won();
+            gameOver();
+            won(x);
           } else {
-            document.querySelector(".suit-result-5").innerText = "LOST";
-            lost();
+            gameOver();
+            lost(x);
           }
 
           player5Cards.push(convertToNum(data.cards[0].value));
@@ -4167,9 +4220,11 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            gameOver();
+            won(x);
           } else {
-            lost();
+            gameOver();
+            lost(x);
           }
 
           player5Cards.push(convertToNum(data.cards[0].value));
@@ -4190,9 +4245,11 @@ function fivePlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
-            won();
+            gameOver();
+            won(x);
           } else {
-            lost();
+            gameOver();
+            lost(x);
           }
 
           player5Cards.push(convertToNum(data.cards[0].value));
@@ -4211,6 +4268,7 @@ function fivePlayers() {
 
 function sixPlayers() {
   const p1FirstCard = async () => {
+    let x = 2;
     document.querySelector(".red").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -4220,11 +4278,13 @@ function sixPlayers() {
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player2UpNext();
+            won(x);
 
             p2FirstCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FirstCard();
           }
           player1Cards.push(convertToNum(data.cards[0].value));
@@ -4246,10 +4306,12 @@ function sixPlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            won();
+            player2UpNext();
+            won(x);
             p2FirstCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FirstCard();
           }
           player1Cards.push(convertToNum(data.cards[0].value));
@@ -4265,6 +4327,7 @@ function sixPlayers() {
 
   //HIGHER
   const p1SecondCard = async () => {
+    let x = 4;
     document.querySelector(".higher").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -4272,10 +4335,12 @@ function sixPlayers() {
           console.log(data);
 
           if (player1Cards[0] < convertToNum(data.cards[0].value)) {
-            won();
+            player2UpNext();
+            won(x);
             p2SecondCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2SecondCard();
           }
 
@@ -4297,10 +4362,12 @@ function sixPlayers() {
           console.log(data);
 
           if (player1Cards[0] > convertToNum(data.cards[0].value)) {
-            won();
+            player2UpNext();
+            won(x);
             p2SecondCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2SecondCard();
           }
           player1Cards.push(convertToNum(data.cards[0].value));
@@ -4315,6 +4382,7 @@ function sixPlayers() {
   };
 
   const p1ThirdCard = async () => {
+    let x = 6;
     //IN
     document.querySelector(".in").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -4325,10 +4393,12 @@ function sixPlayers() {
           const card1 = player1Cards[0];
           const card2 = player1Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            won();
+            player2UpNext();
+            won(x);
             p2ThirdCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2ThirdCard();
           }
 
@@ -4353,10 +4423,12 @@ function sixPlayers() {
           const card2 = player1Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            won();
+            player2UpNext();
+            won(x);
             p2ThirdCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2ThirdCard();
           }
 
@@ -4372,6 +4444,7 @@ function sixPlayers() {
   };
 
   const p1FourthCard = async () => {
+    let x = 8;
     //DIAMONDS
     document.querySelector(".diamonds").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -4379,10 +4452,12 @@ function sixPlayers() {
         .then((data) => {
           console.log(data);
           if (data.cards[0].suit === "DIAMONDS") {
-            won();
+            player2UpNext();
+            won(x);
             p2FourthCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FourthCard();
           }
 
@@ -4402,18 +4477,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "SPADES") {
-            won();
+            player2UpNext();
+            won(x);
             p2FourthCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FourthCard();
           }
-
           player1Cards.push(convertToNum(data.cards[0].value));
           console.log(player1Cards);
-
           document.querySelector(".p1-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -4429,16 +4503,17 @@ function sixPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            player2UpNext();
+            won(x);
             p2FourthCard();
           } else {
-            lost();
+            player2UpNext();
+            lost(x);
             p2FourthCard();
           }
 
           player1Cards.push(convertToNum(data.cards[0].value));
           console.log(player1Cards);
-
           document.querySelector(".p1-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -4454,16 +4529,18 @@ function sixPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
-            won();
+            player2UpNext();
+            won(x);
             p2FourthCard();
           } else {
-            document.querySelector(".suit-result").innerText = "LOST";
-            lost();
+            player2UpNext();
+            lost(x);
             p2FourthCard();
           }
 
           player1Cards.push(convertToNum(data.cards[0].value));
           console.log(player1Cards);
+          //   document.querySelector(".player1").src = data.cards[0].image;
 
           document.querySelector(".p1-card4").src = data.cards[0].image;
         })
@@ -4474,20 +4551,25 @@ function sixPlayers() {
   };
 
   const p2FirstCard = async () => {
+    let x = 2;
     document.querySelector(".red-2").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
+          // const chosenColor = document.querySelector(".color").value;
           console.log(data);
           if (
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player3UpNext();
+            won(x);
             p3FirstCard();
+            // p1SecondCard();
           } else {
+            player3UpNext();
             p3FirstCard();
-            lost();
+            lost(x);
           }
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
@@ -4510,12 +4592,13 @@ function sixPlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            won();
-
+            player3UpNext();
+            won(x);
             p3FirstCard();
           } else {
-            lost();
+            player3UpNext();
             p3FirstCard();
+            lost(x);
           }
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
@@ -4530,6 +4613,7 @@ function sixPlayers() {
 
   //HIGHER
   const p2SecondCard = async () => {
+    let x = 4;
     document.querySelector(".higher-2").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -4537,10 +4621,12 @@ function sixPlayers() {
           console.log(data);
 
           if (player2Cards[0] < convertToNum(data.cards[0].value)) {
-            won();
+            player3UpNext();
+            won(x);
             p3SecondCard();
           } else {
-            lost();
+            player3UpNext();
+            lost(x);
             p3SecondCard();
           }
 
@@ -4560,17 +4646,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (player2Cards[0] > convertToNum(data.cards[0].value)) {
-            won();
+            player3UpNext();
+            won(x);
             p3SecondCard();
           } else {
-            lost();
+            player3UpNext();
+            lost(x);
             p3SecondCard();
           }
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
-
           document.querySelector(".p2-card2").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -4582,21 +4668,22 @@ function sixPlayers() {
   //IN
 
   const p2ThirdCard = async () => {
+    let x = 6;
     document.querySelector(".in-2").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player2Cards[0];
           const card2 = player2Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
             p3ThirdCard();
-
-            won();
+            player3UpNext();
+            won(x);
           } else {
-            lost();
+            player3UpNext();
+            lost(x);
             p3ThirdCard();
           }
 
@@ -4616,22 +4703,21 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player2Cards[0];
           const card2 = player2Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            won();
             p3ThirdCard();
+            player3UpNext();
+            won(x);
           } else {
-            lost();
+            player3UpNext();
+            lost(x);
             p3ThirdCard();
           }
-
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
-
           document.querySelector(".p2-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -4641,6 +4727,7 @@ function sixPlayers() {
   };
 
   const p2FourthCard = async () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-2")
@@ -4649,18 +4736,17 @@ function sixPlayers() {
           .then((res) => res.json()) // parse response as JSON
           .then((data) => {
             console.log(data);
-
             if (data.cards[0].suit === "DIAMONDS") {
+              player3UpNext();
               p3FourthCard();
-              won();
+              won(x);
             } else {
+              player3UpNext();
               p3FourthCard();
-              lost();
+              lost(x);
             }
-
             player2Cards.push(convertToNum(data.cards[0].value));
             console.log(player2Cards);
-
             document.querySelector(".p2-card4").src = data.cards[0].image;
           })
           .catch((err) => {
@@ -4674,17 +4760,19 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "SPADES") {
+            player3UpNext();
             p3FourthCard();
-            won();
+            won(x);
           } else {
+            player3UpNext();
             p3FourthCard();
-            lost();
+            lost(x);
           }
 
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
+          //   document.querySelector(".player1").src = data.cards[0].image;
 
           document.querySelector(".p2-card4").src = data.cards[0].image;
         })
@@ -4699,18 +4787,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "HEARTS") {
+            player3UpNext();
             p3FourthCard();
-            won();
+            won(x);
           } else {
+            player3UpNext();
             p3FourthCard();
-            lost();
+            lost(x);
           }
-
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
-
           document.querySelector(".p2-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -4726,16 +4813,18 @@ function sixPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
+            player3UpNext();
             p3FourthCard();
-
-            won();
+            won(x);
           } else {
+            player3UpNext();
             p3FourthCard();
-            lost();
+            lost(x);
           }
 
           player2Cards.push(convertToNum(data.cards[0].value));
           console.log(player2Cards);
+          //   document.querySelector(".player1").src = data.cards[0].image;
 
           document.querySelector(".p2-card4").src = data.cards[0].image;
         })
@@ -4746,6 +4835,7 @@ function sixPlayers() {
   };
 
   const p3FirstCard = () => {
+    let x = 2;
     //PLAYER 3
     document.querySelector(".red-3").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -4756,10 +4846,12 @@ function sixPlayers() {
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player4UpNext();
+            won(x);
             p4FirstCard();
           } else {
-            lost();
+            player4UpNext();
+            lost(x);
             p4FirstCard();
           }
           player3Cards.push(convertToNum(data.cards[0].value));
@@ -4773,6 +4865,8 @@ function sixPlayers() {
 
     //BLACK
     document.querySelector(".black-3").addEventListener("click", function () {
+      //   prompt("Is card red or black?");
+
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
@@ -4781,10 +4875,12 @@ function sixPlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            won();
+            player4UpNext();
+            won(x);
             p4FirstCard();
           } else {
-            lost();
+            player4UpNext();
+            lost(x);
             p4FirstCard();
           }
           player3Cards.push(convertToNum(data.cards[0].value));
@@ -4799,6 +4895,7 @@ function sixPlayers() {
   };
 
   const p3SecondCard = () => {
+    let x = 4;
     //HIGHER
     document.querySelector(".higher-3").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -4807,13 +4904,13 @@ function sixPlayers() {
           console.log(data);
 
           if (player3Cards[0] < convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-3").innerText = "WIN";
-            won();
+            player4UpNext();
+            won(x);
             p4SecondCard();
           } else {
-            // document.querySelector(".higher-result-3").innerText = "LOST";
+            player4UpNext();
             p4SecondCard();
-            lost();
+            lost(x);
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
@@ -4834,13 +4931,13 @@ function sixPlayers() {
           console.log(data);
 
           if (player3Cards[0] > convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-3").innerText = "WON";
-            won();
+            player4UpNext();
+            won(x);
             p4SecondCard();
           } else {
-            // document.querySelector(".higher-result-3").innerText = "LOST";
-            lost();
+            player4UpNext();
             p4SecondCard();
+            lost(x);
           }
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
@@ -4854,25 +4951,23 @@ function sixPlayers() {
   };
 
   const p3ThirdCard = () => {
+    let x = 6;
     //IN
     document.querySelector(".in-3").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player3Cards[0];
           const card2 = player3Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            // document.querySelector(".in-result-3").innerText = "WON";
-            won();
+            player4UpNext();
+            won(x);
             p4ThirdCard();
           } else {
-            // document.querySelector(".in-result-3").innerText = "LOST";
-            lost();
+            player4UpNext();
+            lost(x);
             p4ThirdCard();
           }
 
@@ -4892,22 +4987,20 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player3Cards[0];
           const card2 = player3Cards[1];
-
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            won();
+            player4UpNext();
+            won(x);
             p4ThirdCard();
           } else {
-            lost();
+            player4UpNext();
+            lost(x);
             p4ThirdCard();
           }
-
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -4917,6 +5010,7 @@ function sixPlayers() {
   };
 
   const p3FourthCard = () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-3")
@@ -4925,18 +5019,18 @@ function sixPlayers() {
           .then((res) => res.json()) // parse response as JSON
           .then((data) => {
             console.log(data);
-
             if (data.cards[0].suit === "DIAMONDS") {
-              won();
+              player4UpNext();
+              won(x);
               p4FourthCard();
             } else {
-              lost();
+              player4UpNext();
+              lost(x);
               p4FourthCard();
             }
 
             player3Cards.push(convertToNum(data.cards[0].value));
             console.log(player3Cards);
-
             document.querySelector(".p3-card4").src = data.cards[0].image;
           })
           .catch((err) => {
@@ -4950,18 +5044,18 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "SPADES") {
-            won();
+            player4UpNext();
+            won(x);
             p4FourthCard();
           } else {
+            player4UpNext();
+            lost(x);
             p4FourthCard();
-            lost();
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -4977,16 +5071,17 @@ function sixPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            player4UpNext();
+            won(x);
             p4FourthCard();
           } else {
-            lost();
+            player4UpNext();
+            lost(x);
             p4FourthCard();
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5002,16 +5097,17 @@ function sixPlayers() {
           console.log(data);
 
           if (data.cards[0].suit === "CLUBS") {
+            player4UpNext();
+            won(x);
             p4FourthCard();
-            won();
           } else {
+            player4UpNext();
+            lost(x);
             p4FourthCard();
-            lost();
           }
 
           player3Cards.push(convertToNum(data.cards[0].value));
           console.log(player3Cards);
-
           document.querySelector(".p3-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5021,6 +5117,7 @@ function sixPlayers() {
   };
 
   const p4FirstCard = () => {
+    let x = 2;
     document.querySelector(".red-4").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -5030,10 +5127,12 @@ function sixPlayers() {
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player5UpNext();
+            won(x);
             p5FirstCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FirstCard();
           }
           player4Cards.push(convertToNum(data.cards[0].value));
@@ -5055,10 +5154,12 @@ function sixPlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            won();
+            player5UpNext();
+            won(x);
             p5FirstCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FirstCard();
           }
           player4Cards.push(convertToNum(data.cards[0].value));
@@ -5073,6 +5174,7 @@ function sixPlayers() {
   };
 
   const p4SecondCard = () => {
+    let x = 4;
     //HIGHER
     document.querySelector(".higher-4").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -5081,10 +5183,12 @@ function sixPlayers() {
           console.log(data);
 
           if (player4Cards[0] < convertToNum(data.cards[0].value)) {
-            won();
+            player5UpNext();
+            won(x);
             p5SecondCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5SecondCard();
           }
 
@@ -5106,10 +5210,10 @@ function sixPlayers() {
           console.log(data);
 
           if (player4Cards[0] > convertToNum(data.cards[0].value)) {
-            won();
+            won(x);
             p5SecondCard();
           } else {
-            lost();
+            lost(x);
             p5SecondCard();
           }
           player4Cards.push(convertToNum(data.cards[0].value));
@@ -5124,6 +5228,7 @@ function sixPlayers() {
   };
 
   const p4ThirdCard = () => {
+    let x = 6;
     //IN
     document.querySelector(".in-4").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -5135,10 +5240,12 @@ function sixPlayers() {
           const card1 = player4Cards[0];
           const card2 = player4Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            won();
+            player5UpNext();
+            won(x);
             p5ThirdCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5ThirdCard();
           }
 
@@ -5164,10 +5271,12 @@ function sixPlayers() {
           const card2 = player4Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            won();
+            player5UpNext();
+            won(x);
             p5ThirdCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5ThirdCard();
           }
 
@@ -5183,6 +5292,7 @@ function sixPlayers() {
   };
 
   const p4FourthCard = () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-4")
@@ -5191,18 +5301,17 @@ function sixPlayers() {
           .then((res) => res.json()) // parse response as JSON
           .then((data) => {
             console.log(data);
-
             if (data.cards[0].suit === "DIAMONDS") {
-              won();
+              player5UpNext();
+              won(x);
               p5FourthCard();
             } else {
-              lost();
+              player5UpNext();
+              lost(x);
               p5FourthCard();
             }
-
             player4Cards.push(convertToNum(data.cards[0].value));
             console.log(player4Cards);
-
             document.querySelector(".p4-card4").src = data.cards[0].image;
           })
           .catch((err) => {
@@ -5216,18 +5325,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "SPADES") {
-            won();
+            player5UpNext();
+            won(x);
             p5FourthCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FourthCard();
           }
-
           player4Cards.push(convertToNum(data.cards[0].value));
           console.log(player4Cards);
-
           document.querySelector(".p4-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5241,18 +5349,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            player5UpNext();
+            won(x);
             p5FourthCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FourthCard();
           }
-
           player4Cards.push(convertToNum(data.cards[0].value));
           console.log(player4Cards);
-
           document.querySelector(".p4-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5266,18 +5373,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "CLUBS") {
-            won();
+            player5UpNext();
+            won(x);
             p5FourthCard();
           } else {
-            lost();
+            player5UpNext();
+            lost(x);
             p5FourthCard();
           }
-
           player4Cards.push(convertToNum(data.cards[0].value));
           console.log(player4Cards);
-
           document.querySelector(".p4-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5287,6 +5393,7 @@ function sixPlayers() {
   };
 
   const p5FirstCard = () => {
+    let x = 2;
     document.querySelector(".red-5").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
@@ -5296,10 +5403,12 @@ function sixPlayers() {
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            won();
+            player6UpNext();
+            won(x);
             p6FirstCard();
           } else {
-            lost();
+            player6UpNext();
+            lost(x);
             p6FirstCard();
           }
           player5Cards.push(convertToNum(data.cards[0].value));
@@ -5313,8 +5422,6 @@ function sixPlayers() {
 
     //BLACK
     document.querySelector(".black-5").addEventListener("click", function () {
-      //   prompt("Is card red or black?");
-
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
@@ -5323,14 +5430,16 @@ function sixPlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            won();
+            player6UpNext();
+            won(x);
             p6FirstCard();
           } else {
+            player6UpNext();
+            lost(x);
             p6FirstCard();
           }
           player5Cards.push(convertToNum(data.cards[0].value));
           console.log(player5Cards);
-
           document.querySelector(".p5-card1").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5340,24 +5449,24 @@ function sixPlayers() {
   };
 
   const p5SecondCard = () => {
+    let x = 4;
     //HIGHER
     document.querySelector(".higher-5").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (player5Cards[0] < convertToNum(data.cards[0].value)) {
-            won();
+            player6UpNext();
+            won(x);
             p6SecondCard();
           } else {
-            lost();
+            player6UpNext();
+            lost(x);
             p6SecondCard();
           }
-
           player5Cards.push(convertToNum(data.cards[0].value));
           console.log(player5Cards);
-
           document.querySelector(".p5-card2").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5371,17 +5480,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (player5Cards[0] > convertToNum(data.cards[0].value)) {
-            won();
+            player6UpNext();
+            won(x);
             p6SecondCard();
           } else {
-            lost();
+            player6UpNext();
+            lost(x);
             p6SecondCard();
           }
           player5Cards.push(convertToNum(data.cards[0].value));
           console.log(player5Cards);
-
           document.querySelector(".p5-card2").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5391,27 +5500,27 @@ function sixPlayers() {
   };
 
   const p5ThirdCard = () => {
+    let x = 6;
     //IN
     document.querySelector(".in-5").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player5Cards[0];
           const card2 = player5Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            won();
+            player6UpNext();
+            won(x);
             p6ThirdCard();
           } else {
-            lost();
+            player6UpNext();
+            lost(x);
             p6ThirdCard();
           }
-
           player5Cards.push(convertToNum(data.cards[0].value));
           console.log(player5Cards);
-
           document.querySelector(".p5-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5425,25 +5534,21 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
           const num = convertToNum(data.cards[0].value);
           const card1 = player5Cards[0];
           const card2 = player5Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            // document.querySelector(".in-result-5").innerText = "WON";
-            won();
+            player6UpNext();
+            won(x);
             p6ThirdCard();
           } else {
-            // document.querySelector(".in-result-5").innerText = "LOST";
-            lost();
+            player6UpNext();
+            lost(x);
             p6ThirdCard();
           }
-
           player5Cards.push(convertToNum(data.cards[0].value));
           console.log(player5Cards);
-
           document.querySelector(".p5-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5453,6 +5558,7 @@ function sixPlayers() {
   };
 
   const p5FourthCard = () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-5")
@@ -5461,22 +5567,17 @@ function sixPlayers() {
           .then((res) => res.json()) // parse response as JSON
           .then((data) => {
             console.log(data);
-            // let chosenSuit = document.querySelector(".suit").value;
-
             if (data.cards[0].suit === "DIAMONDS") {
-              // document.querySelector(".suit-result-5").innerText = "WON";
-              won();
+              player6UpNext();
+              won(x);
               p6FourthCard();
             } else {
-              // document.querySelector(".suit-result-5").innerText = "LOST";
-              lost();
+              player6UpNext();
+              lost(x);
               p6FourthCard();
             }
-
             player5Cards.push(convertToNum(data.cards[0].value));
             console.log(player5Cards);
-            //   document.querySelector(".player1").src = data.cards[0].image;
-
             document.querySelector(".p5-card4").src = data.cards[0].image;
           })
           .catch((err) => {
@@ -5490,22 +5591,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // let chosenSuit = document.querySelector(".suit").value;
-
           if (data.cards[0].suit === "SPADES") {
-            // document.querySelector(".suit-result-5").innerText = "WON";
-            won();
+            player6UpNext();
+            won(x);
             p6FourthCard();
           } else {
-            document.querySelector(".suit-result-5").innerText = "LOST";
-            lost();
+            player6UpNext();
+            lost(x);
             p6FourthCard();
           }
-
           player5Cards.push(convertToNum(data.cards[0].value));
           console.log(player5Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p5-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5519,18 +5615,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            player6UpNext();
+            won(x);
             p6FourthCard();
           } else {
-            lost();
+            player6UpNext();
+            lost(x);
             p6FourthCard();
           }
-
           player5Cards.push(convertToNum(data.cards[0].value));
           console.log(player5Cards);
-
           document.querySelector(".p5-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5544,21 +5639,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "CLUBS") {
-            // document.querySelector(".suit-result-5").innerText = "WON";
-            won();
+            player6UpNext();
+            won(x);
             p6FourthCard();
           } else {
-            // document.querySelector(".suit-result-5").innerText = "LOST";
-            lost();
+            player6UpNext();
+            lost(x);
             p6FourthCard();
           }
-
           player5Cards.push(convertToNum(data.cards[0].value));
           console.log(player5Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p5-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5568,23 +5659,23 @@ function sixPlayers() {
   };
 
   const p6FirstCard = () => {
+    let x = 2;
     document.querySelector(".red-6").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
-          // const chosenColor = document.querySelector(".color").value;
           console.log(data);
           if (
             data.cards[0].suit === "HEARTS" ||
             data.cards[0].suit === "DIAMONDS"
           ) {
-            // document.querySelector(".color-result-6").innerText = "WIN";
-            won();
+            player1UpNext();
+            won(x);
             p1SecondCard();
           } else {
-            lost();
+            player1UpNext();
+            lost(x);
             p1SecondCard();
-            // document.querySelector(".color-result-6").innerText = "LOST";
           }
           player6Cards.push(convertToNum(data.cards[0].value));
           console.log(player6Cards);
@@ -5597,8 +5688,6 @@ function sixPlayers() {
 
     //BLACK
     document.querySelector(".black-6").addEventListener("click", function () {
-      //   prompt("Is card red or black?");
-
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
@@ -5607,16 +5696,16 @@ function sixPlayers() {
             data.cards[0].suit === "SPADES" ||
             data.cards[0].suit === "CLUBS"
           ) {
-            // document.querySelector(".color-result-6").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1SecondCard();
           } else {
-            // document.querySelector(".color-result-6").innerText = "LOST";
+            player1UpNext();
+            lost(x);
             p1SecondCard();
           }
           player6Cards.push(convertToNum(data.cards[0].value));
           console.log(player6Cards);
-
           document.querySelector(".p6-card1").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5626,26 +5715,24 @@ function sixPlayers() {
   };
 
   const p6SecondCard = () => {
+    let x = 4;
     //HIGHER
     document.querySelector(".higher-6").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (player6Cards[0] < convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-6").innerText = "WIN";
-            won();
+            player1UpNext();
+            won(x);
             p1ThirdCard();
           } else {
-            // document.querySelector(".higher-result-6").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1ThirdCard();
           }
-
           player6Cards.push(convertToNum(data.cards[0].value));
           console.log(player6Cards);
-
           document.querySelector(".p6-card2").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5659,19 +5746,17 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (player6Cards[0] > convertToNum(data.cards[0].value)) {
-            // document.querySelector(".higher-result-6").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1ThirdCard();
           } else {
-            // document.querySelector(".higher-result-6").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1ThirdCard();
           }
           player6Cards.push(convertToNum(data.cards[0].value));
           console.log(player6Cards);
-
           document.querySelector(".p6-card2").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5681,31 +5766,27 @@ function sixPlayers() {
   };
 
   const p6ThirdCard = () => {
+    let x = 6;
     //IN
     document.querySelector(".in-6").addEventListener("click", function () {
       fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
-
           const num = convertToNum(data.cards[0].value);
           const card1 = player6Cards[0];
           const card2 = player6Cards[1];
           if ((card1 < num && card2 > num) || (card2 < num && card1 > num)) {
-            // document.querySelector(".in-result-6").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1FourthCard();
           } else {
-            // document.querySelector(".in-result-6").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1FourthCard();
           }
-
           player6Cards.push(convertToNum(data.cards[0].value));
           console.log(player6Cards);
-
           document.querySelector(".p6-card3").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5719,22 +5800,19 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // const chosenInOut = document.querySelector(".in-out").value;
-          // console.log(chosenInOut);
           const num = convertToNum(data.cards[0].value);
           const card1 = player6Cards[0];
           const card2 = player6Cards[1];
 
           if ((card1 > num && card2 > num) || (card2 < num && card1 < num)) {
-            // document.querySelector(".in-result-6").innerText = "WON";
-            won();
+            player1UpNext();
+            won(x);
             p1FourthCard();
           } else {
-            // document.querySelector(".in-result-6").innerText = "LOST";
-            lost();
+            player1UpNext();
+            lost(x);
             p1FourthCard();
           }
-
           player6Cards.push(convertToNum(data.cards[0].value));
           console.log(player6Cards);
 
@@ -5747,6 +5825,7 @@ function sixPlayers() {
   };
 
   const p6FourthCard = () => {
+    let x = 8;
     //DIAMONDS
     document
       .querySelector(".diamonds-6")
@@ -5755,20 +5834,15 @@ function sixPlayers() {
           .then((res) => res.json()) // parse response as JSON
           .then((data) => {
             console.log(data);
-            // let chosenSuit = document.querySelector(".suit").value;
-
             if (data.cards[0].suit === "DIAMONDS") {
-              // document.querySelector(".suit-result-6").innerText = "WON";
-              won();
+              gameOver();
+              won(x);
             } else {
-              // document.querySelector(".suit-result-6").innerText = "LOST";
-              lost();
+              gameOver();
+              lost(x);
             }
-
             player6Cards.push(convertToNum(data.cards[0].value));
             console.log(player6Cards);
-            //   document.querySelector(".player1").src = data.cards[0].image;
-
             document.querySelector(".p6-card4").src = data.cards[0].image;
           })
           .catch((err) => {
@@ -5782,20 +5856,15 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-          // let chosenSuit = document.querySelector(".suit").value;
-
           if (data.cards[0].suit === "SPADES") {
-            // document.querySelector(".suit-result-6").innerText = "WON";
-            won();
+            gameOver();
+            won(x);
           } else {
-            document.querySelector(".suit-result-6").innerText = "LOST";
-            lost();
+            gameOver();
+            lost(x);
           }
-
           player6Cards.push(convertToNum(data.cards[0].value));
           console.log(player6Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p6-card4").src = data.cards[0].image;
         })
         .catch((err) => {
@@ -5809,13 +5878,13 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "HEARTS") {
-            won();
+            gameOver();
+            won(x);
           } else {
-            lost();
+            gameOver();
+            lost(x);
           }
-
           player6Cards.push(convertToNum(data.cards[0].value));
           console.log(player6Cards);
 
@@ -5832,19 +5901,15 @@ function sixPlayers() {
         .then((res) => res.json()) // parse response as JSON
         .then((data) => {
           console.log(data);
-
           if (data.cards[0].suit === "CLUBS") {
-            // document.querySelector(".suit-result-6").innerText = "WON";
-            won();
+            gameOver();
+            won(x);
           } else {
-            // document.querySelector(".suit-result-6").innerText = "LOST";
-            lost();
+            gameOver();
+            lost(x);
           }
-
           player6Cards.push(convertToNum(data.cards[0].value));
           console.log(player6Cards);
-          //   document.querySelector(".player1").src = data.cards[0].image;
-
           document.querySelector(".p6-card4").src = data.cards[0].image;
         })
         .catch((err) => {
