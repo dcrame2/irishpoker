@@ -5917,6 +5917,5 @@ function sixPlayers() {
         });
     });
   };
-
   p1FirstCard();
 }
