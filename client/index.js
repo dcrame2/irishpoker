@@ -1,31 +1,77 @@
 var ctx = document.querySelector(".in-lobby");
 var ctx1 = document.querySelector(".in-lobby1");
 var ctx2 = document.querySelector(".in-lobby2");
+let playerLabel = document.querySelector(".player-label");
 ctx.font = "30px Arial";
 
 let socket = io();
+// document.querySelector(".players-modal1").classList.remove("hidden");
 
-let serverConnect = document.querySelector(".server");
-
-serverConnect.addEventListener("click", connectServer);
-
-function connectServer() {
-  document.querySelector(".players-modal1").classList.remove("hidden");
+let arr = [];
+const sock = () => {
   socket.on("newPositions", function (data) {
-    for (let i = 0; i < data.length; i++) {
-      console.log(data);
-      ctx.innerText = `There are ${data[i].number} playersin the lobby right now`;
-
-      console.log(data[i].number);
+    console.log(data[0]);
+    console.log(data[1]);
+    console.log(data[2]);
+    console.log(data[3]);
+    console.log(data[4]);
+    console.log(data.length);
+    if (data.length === 6) {
+      console.log("6 players");
+    } else if (data.length === 5) {
+      console.log("5 players");
+    } else if (data.length === 4) {
+      console.log("player 4");
+    } else if (data.length === 3) {
+      ctx2.innerText = data[2].number;
+      ctx1.innerText = data[1].number;
+      ctx.innerText = data[0].number;
+      console.log("player3");
+    } else if (data.length === 2) {
+      ctx1.innerText = data[1].number;
+      ctx.innerText = data[0].number;
+      console.log("player 2");
+    } else if (data.length === 1) {
+      ctx.innerText = data[0].number;
+      console.log("player1");
+    } else {
+      console.log("cant play");
     }
-  });
-}
 
-// socket.on("newPositions", function (data) {
-//   for (let i = 0; i < data.length; i++) {
-//     ctx.innerText = data[i].number;
-//   }
-// });
+    arr.push(data[0]);
+    arr.push(data[1]);
+    arr.push(data[2]);
+    arr.push(data[3]);
+    arr.push(data[4]);
+    arr.push(data[5]);
+
+    console.log([data[0], data[1], data[2], data[3], data[4], data[5]]);
+    // for (let i = 0; i < data.length; i++) {
+    //   ctx.innerText = data[i].number;
+    // }
+    console.log(arr.filter((player) => player !== undefined));
+  });
+};
+sock();
+
+console.log(sock);
+
+document.querySelector(".start-game").addEventListener("click", function () {
+  console.log("hi");
+  document.querySelector(".players-modal1").classList.add("hidden");
+  document.querySelector(".players-modal").classList.remove("hidden");
+  document.querySelector(".player6").classList.add("hidden");
+  document.querySelector(".player5").classList.add("hidden");
+  document.querySelector(".player4").classList.add("hidden");
+  document.querySelector(".p4-drinks").classList.add("hidden");
+  document.querySelector(".p5-drinks").classList.add("hidden");
+  document.querySelector(".p6-drinks").classList.add("hidden");
+  // document.querySelector(".player2-form").classList.remove("hidden");
+  // document.querySelector(".player3-form").classList.remove("hidden");
+  document.querySelector(".num-of-players-container").classList.add("hidden");
+  document.querySelector(".players-form").classList.remove("hidden");
+  // threePlayers();
+});
 
 // ********************************************************
 // ********************************************************

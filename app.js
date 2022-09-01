@@ -3,6 +3,7 @@ let express = require("express");
 const serveStatic = require("serve-static");
 let app = express();
 let serv = require("http").Server(app);
+// const { io } = require("socket.io-client");
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/client/index.html");
@@ -41,11 +42,11 @@ io.sockets.on("connection", function (socket) {
   });
 });
 
-setInterval(function (id) {
+const myInterval = setInterval(function (id) {
   let pack = [];
   for (let i in PLAYER_LIST) {
     let player = PLAYER_LIST[i];
-
+    // console.log(player);
     pack.push({
       id: id,
       number: player.number,
@@ -54,6 +55,12 @@ setInterval(function (id) {
 
   for (let i in SOCKET_LIST) {
     let socket = SOCKET_LIST[i];
+    // console.log(pack);
     socket.emit("newPositions", pack);
   }
-}, 1000 / 25);
+}, 15000 / 25);
+
+setTimeout(function () {
+  clearInterval(myInterval);
+  console.log("Done");
+}, 10000);
