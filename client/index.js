@@ -1,77 +1,78 @@
 var ctx = document.querySelector(".in-lobby");
 var ctx1 = document.querySelector(".in-lobby1");
 var ctx2 = document.querySelector(".in-lobby2");
+var ctx3 = document.querySelector(".in-lobby3");
+var ctx4 = document.querySelector(".in-lobby4");
+var ctx5 = document.querySelector(".in-lobby5");
 let playerLabel = document.querySelector(".player-label");
 ctx.font = "30px Arial";
 
 let socket = io();
-// document.querySelector(".players-modal1").classList.remove("hidden");
+// document.querySelector(".players-modal").classList.remove("hidden");
+// document.querySelector(".players-form").classList.remove("hidden");
 
 let arr = [];
-const sock = () => {
-  socket.on("newPositions", function (data) {
-    console.log(data[0]);
-    console.log(data[1]);
-    console.log(data[2]);
-    console.log(data[3]);
-    console.log(data[4]);
-    console.log(data.length);
-    if (data.length === 6) {
-      console.log("6 players");
-    } else if (data.length === 5) {
-      console.log("5 players");
-    } else if (data.length === 4) {
-      console.log("player 4");
-    } else if (data.length === 3) {
-      ctx2.innerText = data[2].number;
-      ctx1.innerText = data[1].number;
-      ctx.innerText = data[0].number;
-      console.log("player3");
-    } else if (data.length === 2) {
-      ctx1.innerText = data[1].number;
-      ctx.innerText = data[0].number;
-      console.log("player 2");
-    } else if (data.length === 1) {
-      ctx.innerText = data[0].number;
-      console.log("player1");
-    } else {
-      console.log("cant play");
-    }
+socket.on("newPositions", function (data) {
+  if (data.length === 6) {
+    console.log("6 players");
+    arr.push(data[5].number);
+  } else if (data.length === 5) {
+    arr.push(data[4].number);
+    console.log("5 players");
+  } else if (data.length === 4) {
+    ctx3.innerText = data[3].number;
+    ctx2.innerText = data[2].number;
+    ctx1.innerText = data[1].number;
+    ctx.innerText = data[0].number;
+    console.log("player 4");
+    arr.push(data[3].number);
+  } else if (data.length === 3) {
+    ctx2.innerText = data[2].number;
+    ctx1.innerText = data[1].number;
+    ctx.innerText = data[0].number;
+    arr.push(data[2].number);
+    console.log("player3");
+  } else if (data.length === 2) {
+    // ctx1.innerText = data[1].number;
+    // ctx.innerText = data[0].number;
 
-    arr.push(data[0]);
-    arr.push(data[1]);
-    arr.push(data[2]);
-    arr.push(data[3]);
-    arr.push(data[4]);
-    arr.push(data[5]);
-
-    console.log([data[0], data[1], data[2], data[3], data[4], data[5]]);
-    // for (let i = 0; i < data.length; i++) {
-    //   ctx.innerText = data[i].number;
-    // }
-    console.log(arr.filter((player) => player !== undefined));
-  });
-};
-sock();
-
-console.log(sock);
-
-document.querySelector(".start-game").addEventListener("click", function () {
-  console.log("hi");
-  document.querySelector(".players-modal1").classList.add("hidden");
-  document.querySelector(".players-modal").classList.remove("hidden");
-  document.querySelector(".player6").classList.add("hidden");
-  document.querySelector(".player5").classList.add("hidden");
-  document.querySelector(".player4").classList.add("hidden");
-  document.querySelector(".p4-drinks").classList.add("hidden");
-  document.querySelector(".p5-drinks").classList.add("hidden");
-  document.querySelector(".p6-drinks").classList.add("hidden");
-  // document.querySelector(".player2-form").classList.remove("hidden");
-  // document.querySelector(".player3-form").classList.remove("hidden");
-  document.querySelector(".num-of-players-container").classList.add("hidden");
-  document.querySelector(".players-form").classList.remove("hidden");
-  // threePlayers();
+    ctx1.innerText = data[1].number;
+    ctx.innerText = data[0].number;
+    arr.push(data[1].number);
+    console.log("player2");
+  } else if (data.length === 1) {
+    ctx.innerText = data[0].number;
+    arr.push(data[0].number);
+    console.log("player1");
+  } else {
+    console.log("cant play");
+  }
 });
+
+document.querySelector(".start-game1").addEventListener("click", () => {
+  socket.emit("startGame");
+});
+document.querySelector(".server").addEventListener("click", function () {
+  document.querySelector(".players-modal1").classList.remove("hidden");
+});
+
+//old
+// document.querySelector(".start-game").addEventListener("click", function () {
+//   console.log("hi");
+//   document.querySelector(".players-modal1").classList.add("hidden");
+//   document.querySelector(".players-modal").classList.remove("hidden");
+//   document.querySelector(".player6").classList.add("hidden");
+//   document.querySelector(".player5").classList.add("hidden");
+//   document.querySelector(".player4").classList.add("hidden");
+//   document.querySelector(".p4-drinks").classList.add("hidden");
+//   document.querySelector(".p5-drinks").classList.add("hidden");
+//   document.querySelector(".p6-drinks").classList.add("hidden");
+//   // document.querySelector(".player2-form").classList.remove("hidden");
+//   // document.querySelector(".player3-form").classList.remove("hidden");
+//   document.querySelector(".num-of-players-container").classList.add("hidden");
+//   document.querySelector(".players-form").classList.remove("hidden");
+//   // threePlayers();
+// });
 
 // ********************************************************
 // ********************************************************
@@ -89,35 +90,53 @@ let player6Cards = [];
 
 let playerCount = 0;
 
+const submitEvent = () =>
+  document
+    .querySelector(".submit-form")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
+      document.querySelector(".players-modal1").classList.remove("hidden");
+      let player1Name = document.querySelector(".player-1-name").value;
+
+      document.querySelector(".new-div").classList.remove("hidden");
+      document.querySelector(".pizza").innerText = player1Name;
+      // let player2Name = document.querySelector(".player-2-name").value;
+      // let player3Name = document.querySelector(".player-3-name").value;
+      // let player4Name = document.querySelector(".player-4-name").value;
+      // let player5Name = document.querySelector(".player-5-name").value;
+      // let player6Name = document.querySelector(".player-6-name").value;
+    });
+
 // Form Submit
-document.querySelector(".submit-form").addEventListener("click", function (e) {
-  e.preventDefault();
+// document.querySelector(".submit-form").addEventListener("click", function (e) {
+//   e.preventDefault();
 
-  let player1Name = document.querySelector(".player-1-name").value;
-  let player2Name = document.querySelector(".player-2-name").value;
-  let player3Name = document.querySelector(".player-3-name").value;
-  let player4Name = document.querySelector(".player-4-name").value;
-  let player5Name = document.querySelector(".player-5-name").value;
-  let player6Name = document.querySelector(".player-6-name").value;
+//   let player1Name = document.querySelector(".player-1-name").value;
+//   let player2Name = document.querySelector(".player-2-name").value;
+//   let player3Name = document.querySelector(".player-3-name").value;
+//   let player4Name = document.querySelector(".player-4-name").value;
+//   let player5Name = document.querySelector(".player-5-name").value;
+//   let player6Name = document.querySelector(".player-6-name").value;
 
-  console.log(player1Name);
-  document.querySelector(".player1-name").innerText = player1Name;
-  document.querySelector(".player2-name").innerText = player2Name;
-  document.querySelector(".player3-name").innerText = player3Name;
-  document.querySelector(".player4-name").innerText = player4Name;
-  document.querySelector(".player5-name").innerText = player5Name;
-  document.querySelector(".player6-name").innerText = player6Name;
+//   console.log(player1Name);
+//   document.querySelector(".player1-name").innerText = player1Name;
+//   document.querySelector(".player2-name").innerText = player2Name;
+//   document.querySelector(".player3-name").innerText = player3Name;
+//   document.querySelector(".player4-name").innerText = player4Name;
+//   document.querySelector(".player5-name").innerText = player5Name;
+//   document.querySelector(".player6-name").innerText = player6Name;
+//   e;
 
-  document.querySelector(".player1-name-btn").innerText = player1Name;
-  document.querySelector(".player2-name-btn").innerText = player2Name;
-  document.querySelector(".player3-name-btn").innerText = player3Name;
-  document.querySelector(".player4-name-btn").innerText = player4Name;
-  document.querySelector(".player5-name-btn").innerText = player5Name;
-  document.querySelector(".player6-name-btn").innerText = player6Name;
+//   document.querySelector(".player1-name-btn").innerText = player1Name;
+//   document.querySelector(".player2-name-btn").innerText = player2Name;
+//   document.querySelector(".player3-name-btn").innerText = player3Name;
+//   document.querySelector(".player4-name-btn").innerText = player4Name;
+//   document.querySelector(".player5-name-btn").innerText = player5Name;
+//   document.querySelector(".player6-name-btn").innerText = player6Name;
 
-  document.querySelector(".players-modal").classList.add("hidden");
-  document.querySelector(".game-container").classList.toggle("hidden");
-});
+//   document.querySelector(".players-modal").classList.add("hidden");
+//   document.querySelector(".game-container").classList.toggle("hidden");
+// });
 
 // PLAYER # SELECT
 document.querySelector(".player-1").addEventListener("click", function () {

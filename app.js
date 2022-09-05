@@ -40,27 +40,25 @@ io.sockets.on("connection", function (socket) {
     delete SOCKET_LIST[socket.id];
     delete PLAYER_LIST[socket.id];
   });
+
+  socket.on("startGame", function () {
+    io.emit("startGame", clearInterval(myInterval));
+  });
 });
 
-const myInterval = setInterval(function (id) {
+const myInterval = setInterval(function () {
   let pack = [];
   for (let i in PLAYER_LIST) {
     let player = PLAYER_LIST[i];
     // console.log(player);
     pack.push({
-      id: id,
+      id: player.id,
       number: player.number,
     });
   }
 
   for (let i in SOCKET_LIST) {
     let socket = SOCKET_LIST[i];
-    // console.log(pack);
     socket.emit("newPositions", pack);
   }
-}, 15000 / 25);
-
-setTimeout(function () {
-  clearInterval(myInterval);
-  console.log("Done");
-}, 10000);
+}, 5000 / 25);
