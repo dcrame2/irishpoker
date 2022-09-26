@@ -1,64 +1,82 @@
-const { decodePacket } = require("engine.io-parser");
-let express = require("express");
-const serveStatic = require("serve-static");
-let app = express();
-let serv = require("http").Server(app);
-// const { io } = require("socket.io-client");
+const path = require("path");
+const http = require("http");
+const express = require("express");
+const socketio = require("socket.io");
 
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/client/index.html");
-});
-app.use("/client", express.static(__dirname + "/client"));
+// const formatMessage = require("./utils/messages");
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers,
+} = require("./utils/users");
 
-serv.listen(2000);
-console.log("Server started");
+const app = express();
 
-let SOCKET_LIST = {};
-let PLAYER_LIST = {};
-let playerCount = 0;
+const server = http.createServer(app);
+const io = socketio(server);
 
-let Player = function (id) {
-  let self = {
-    id: id,
-    number: playerCount,
-    // number: "" + Math.floor(6 * Math.random()),
-  };
-  return self;
-};
+const botName = "Admin";
 
-let io = require("socket.io")(serv, {});
-io.sockets.on("connection", function (socket) {
-  socket.id = playerCount++;
+// Set static folder
+app.use(express.static(path.join(__dirname, "client")));
 
-  SOCKET_LIST[socket.id] = socket;
+// Run when client connects
+io.on("connection", (socket) => {
+  console.log(socket.id);
 
-  let player = Player(socket.id);
-  PLAYER_LIST[socket.id] = player;
-  console.log(player);
+  socket.on("joinRoom", ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
 
-  socket.on("disconnect", function () {
-    delete SOCKET_LIST[socket.id];
-    delete PLAYER_LIST[socket.id];
-  });
+    socket.join(user.room);
 
-  socket.on("startGame", function () {
-    io.emit("startGame", clearInterval(myInterval));
-  });
-});
+    // Welcome current user
+    // socket.emit("message", formatMessage(botName, "Welcome to CharCord!"));
 
-const myInterval = setInterval(function () {
-  let pack = [];
-  for (let i in PLAYER_LIST) {
-    let player = PLAYER_LIST[i];
-    // console.log(player);
-    pack.push({
-      id: player.id,
-      number: player.number,
+    // Broadcast when a user connects
+    //broadcast.emit() shows a messages to everyone but the current client.
+    // socket.broadcast
+    //   .to(user.room)
+    //   .emit(
+    //     "message",
+    //     formatMessage(botName, `${user.username} has joined the chat`)
+    // );
+
+    // Send users and room info
+    io.to(user.room).emit("roomUsers", {
+      room: user.room,
+      users: getRoomUsers(user.room),
     });
-  }
+  });
 
-  for (let i in SOCKET_LIST) {
-    let socket = SOCKET_LIST[i];
-    socket.emit("newPositions", pack);
-  }
-}, 5000 / 25);
+  //all clients in general
+  //   io.emit()
+
+  //Listen for chat message
+  // socket.on("chatMessage", (msg) => {
+  //   const user = getCurrentUser(socket.id);
+  //   io.to(user.room).emit("message", formatMessage(user.username, msg));
+  // });
+
+  // Runs when client disconnects
+  socket.on("disconnect", () => {
+    const user = userLeave(socket.id);
+
+    if (user) {
+      // io.to(user.room).emit(
+      //   "message",
+      //   formatMessage(botName, `${user.username} has left the chat`)
+      // );
+
+      // Send users and room info
+      io.to(user.room).emit("roomUsers", {
+        room: user.room,
+        users: getRoomUsers(user.room),
+      });
+    }
+  });
+});
+
+const PORT = 3000 || process.env.PORT;
+
+server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

@@ -7,54 +7,303 @@ var ctx5 = document.querySelector(".in-lobby5");
 let playerLabel = document.querySelector(".player-label");
 ctx.font = "30px Arial";
 
-let socket = io();
-// document.querySelector(".players-modal").classList.remove("hidden");
-// document.querySelector(".players-form").classList.remove("hidden");
+const socket = io();
 
 let arr = [];
-socket.on("newPositions", function (data) {
-  if (data.length === 6) {
-    console.log("6 players");
-    arr.push(data[5].number);
-  } else if (data.length === 5) {
-    arr.push(data[4].number);
-    console.log("5 players");
-  } else if (data.length === 4) {
-    ctx3.innerText = data[3].number;
-    ctx2.innerText = data[2].number;
-    ctx1.innerText = data[1].number;
-    ctx.innerText = data[0].number;
-    console.log("player 4");
-    arr.push(data[3].number);
-  } else if (data.length === 3) {
-    ctx2.innerText = data[2].number;
-    ctx1.innerText = data[1].number;
-    ctx.innerText = data[0].number;
-    arr.push(data[2].number);
-    console.log("player3");
-  } else if (data.length === 2) {
-    // ctx1.innerText = data[1].number;
-    // ctx.innerText = data[0].number;
 
-    ctx1.innerText = data[1].number;
-    ctx.innerText = data[0].number;
-    arr.push(data[1].number);
-    console.log("player2");
-  } else if (data.length === 1) {
-    ctx.innerText = data[0].number;
-    arr.push(data[0].number);
-    console.log("player1");
+const urlSearchParams = new URLSearchParams(window.location.search);
+const { username, room } = Object.fromEntries(urlSearchParams.entries());
+
+// Join Chat
+socket.emit("joinRoom", { username, room });
+
+socket.on("roomUsers", ({ room, users }) => {
+  // outputRoomName(room);
+  outputUsers(users);
+  // outputPlayer1(users);
+  // outputPlayer2(users);
+});
+
+// Add users to DOM
+function outputUsers(users) {
+  console.log(users);
+  `  // document.querySelector(".game-container").innerHTML = `;
+  //   ${users.map((user) => `<li>${user.username}</li>`).join("")}
+  //   `;`
+  if (users.length === 1) {
+    outputPlayer1(users);
+  } else if (users.length === 2) {
+    outputPlayer1(users);
+    outputPlayer2(users);
+  } else if (users.length === 3) {
+    outputPlayer1(users);
+    outputPlayer2(users);
+    outputPlayer3(users);
+  } else if (users.length === 4) {
+    outputPlayer1(users);
+    outputPlayer2(users);
+    outputPlayer3(users);
+    outputPlayer4(users);
+  } else if (users.length === 5) {
+    outputPlayer1(users);
+    outputPlayer2(users);
+    outputPlayer3(users);
+    outputPlayer4(users);
+    outputPlayer5(users);
+  } else if (users.length === 6) {
+    outputPlayer1(users);
+    outputPlayer2(users);
+    outputPlayer3(users);
+    outputPlayer4(users);
+    outputPlayer5(users);
+    outputPlayer6(users);
   } else {
-    console.log("cant play");
+    console.log("This shit broke bruh");
   }
-});
+}
 
-document.querySelector(".start-game1").addEventListener("click", () => {
-  socket.emit("startGame");
-});
-document.querySelector(".server").addEventListener("click", function () {
-  document.querySelector(".players-modal1").classList.remove("hidden");
-});
+function outputPlayer1(users) {
+  document.querySelector(
+    ".player1"
+  ).innerHTML = `<h2 class="player1-name">${users[0].username}</h2>
+  <div class="card-container">
+    <img class="p1-card1" src="/img/green_card.png" alt="playing card" />
+    <div class="btn-container">
+    <button class="red btn-select">Red</button>
+    <button class="black btn-select">Black</button>
+  </div>
+</div>
+<div class="card-container">
+  <img class="p1-card2" src="/img/green_card.png" alt="playing card" />
+  <div class="btn-container">
+    <button class="lower btn-select">Lower</button>
+    <button class="higher btn-select">Higher</button>
+  </div>
+</div>
+<div class="card-container">
+  <img class="p1-card3" src="/img/green_card.png" alt="playing card" />
+  <div class="btn-container">
+  <button class="in btn-select">In</button>
+  <button class="out btn-select">Out</button>
+</div>
+</div>
+<div class="card-container">
+  <img class="p1-card4" src="/img/green_card.png" alt="playing card" />
+  <div class="btn-container">
+  <button class="diamonds btn-select">Diamonds</button>
+  <button class="spades btn-select">Spades</button>
+  <button class="clubs btn-select">Clubs</button>
+  <button class="hearts btn-select">Hearts</button>
+</div>
+</div>`;
+}
+
+function outputPlayer2(users) {
+  document.querySelector(
+    ".player2"
+  ).innerHTML = `<h2 class="player2-name">${users[1].username}</h2>
+  <div class="card-container">
+      <img class="p2-card1" src="/img/green_card.png" alt="playing card" />
+      <div class="btn-container">
+      <button class="red-2 btn-select">Red</button>
+      <button class="black-2 btn-select">Black</button>
+    </div>
+    </div>
+    <div class="card-container">
+      <img class="p2-card2" src="/img/green_card.png" alt="playing card" />
+      <div class="btn-container">
+        <button class="lower-2 btn-select">Lower</button>
+        <button class="higher-2 btn-select">Higher</button>
+      </div>
+    </div>
+    <div class="card-container">
+      <img class="p2-card3" src="/img/green_card.png" alt="playing card" />
+      <div class="btn-container">
+      <button class="in-2 btn-select">In</button>
+      <button class="out-2 btn-select">Out</button>
+    </div>
+    </div>
+    <div class="card-container">
+      <img class="p2-card4" src="/img/green_card.png" alt="playing card" />
+
+        <div class="btn-container">
+            <button class="diamonds-2 btn-select">Diamonds</button>
+            <button class="spades-2 btn-select">Spades</button>
+            <button class="clubs-2 btn-select">Clubs</button>
+            <button class="hearts-2 btn-select">Hearts</button>
+        </div>
+      </div>`;
+}
+
+function outputPlayer3(users) {
+  document.querySelector(
+    ".player3"
+  ).innerHTML = `<h2 class="player3-name">${users[2].username}</h2>
+  <div class="card-container">
+      <img class="p3-card1" src="/img/green_card.png" alt="playing card" />
+      <div class="btn-container">
+      <button class="red-3 btn-select">Red</button>
+      <button class="black-3 btn-select">Black</button>
+    </div>
+    </div>
+    <div class="card-container">
+      <img class="p3-card2" src="/img/green_card.png" alt="playing card" />
+      <div class="btn-container">
+        <button class="lower-3 btn-select">Lower</button>
+        <button class="higher-3 btn-select">Higher</button>
+      </div>
+    </div>
+    <div class="card-container">
+      <img class="p3-card3" src="/img/green_card.png" alt="playing card" />
+      <div class="btn-container">
+        <button class="in-3 btn-select">In</button>
+        <button class="out-3 btn-select">Out</button>
+      </div>
+    </div>
+    <div class="card-container">
+      <img class="p3-card4" src="/img/green_card.png" alt="playing card" />
+      <div class="btn-container">
+        <button class="diamonds-3 btn-select">Diamonds</button>
+        <button class="spades-3 btn-select">Spades</button>
+        <button class="clubs-3 btn-select">Clubs</button>
+        <button class="hearts-3 btn-select">Hearts</button>
+       </div>
+      </div>`;
+}
+
+function outputPlayer4(users) {
+  document.querySelector(".player4").innerHTML = `
+  <h2 class="player4-name">${users[3].username}</h2>
+      <div class="card-container">
+          <img class="p4-card1" src="/img/green_card.png" alt="playing card" />
+          <div class="btn-container">
+          <button class="red-4 btn-select">Red</button>
+          <button class="black-4 btn-select">Black</button>
+        </div>
+        </div>
+        <div class="card-container">
+          <img class="p4-card2" src="/img/green_card.png" alt="playing card" />
+          <div class="btn-container">
+            <button class="lower-4 btn-select">Lower</button>
+            <button class="higher-4 btn-select">Higher</button>
+          </div>
+        </div>
+        <div class="card-container">
+          <img class="p4-card3" src="/img/green_card.png" alt="playing card" />
+        
+          <div class="btn-container">
+          <button class="in-4 btn-select">In</button>
+          <button class="out-4 btn-select">Out</button>
+        </div>
+        </div>
+        <div class="card-container">
+          <img class="p4-card4" src="/img/green_card.png" alt="playing card" />
+          <div class="btn-container">
+              <button class="diamonds-4 btn-select">Diamonds</button>
+              <button class="spades-4 btn-select">Spades</button>
+              <button class="clubs-4 btn-select">Clubs</button>
+              <button class="hearts-4 btn-select">Hearts</button>
+          </div>
+        </div>`;
+}
+
+function outputPlayer5(users) {
+  document.querySelector(".player5").innerHTML = `
+  <h2 class="player5-name">${users[4].username}</h2>
+            <div class="card-container">
+             <img class="p5-card1" src="/img/green_card.png" alt="playing card" />
+             <div class="btn-container">
+               <button class="red-5 btn-select">Red</button>
+               <button class="black-5 btn-select">Black</button>
+              </div>
+              </div>
+                <div class="card-container">
+                 <img class="p5-card2" src="/img/green_card.png" alt="playing card" />
+                  <div class="btn-container">
+                    <button class="lower-5 btn-select">Lower</button>
+                     <button class="higher-5 btn-select">Higher</button>
+                </div>
+                </div>
+                  <div class="card-container">
+                    <img class="p5-card3" src="/img/green_card.png" alt="playing card" />
+                  
+                    <div class="btn-container">
+                    <button class="in-5 btn-select">In</button>
+                    <button class="out-5 btn-select">Out</button>
+                  </div>
+                  </div>
+                  <div class="card-container">
+                    <img class="p5-card4" src="/img/green_card.png" alt="playing card" />
+                    <div class="btn-container">
+                        <button class="diamonds-5 btn-select">Diamonds</button>
+                        <button class="spades-5 btn-select">Spades</button>
+                        <button class="clubs-5 btn-select">Clubs</button>
+                        <button class="hearts-5 btn-select">Hearts</button>
+                    </div>
+                  </div>`;
+}
+
+function outputPlayer6(users) {
+  document.querySelector(".player6").innerHTML = `
+  <h2 class="player6-name">${users[5].username}</h2>
+          <div class="card-container">
+              <img class="p6-card1" src="/img/green_card.png" alt="playing card" />
+              <div class="btn-container">
+              <button class="red-6 btn-select">Red</button>
+              <button class="black-6 btn-select">Black</button>
+            </div>
+            </div>
+            <div class="card-container">
+              <img class="p6-card2" src="/img/green_card.png" alt="playing card" />
+              <div class="btn-container">
+                <button class="lower-6 btn-select">Lower</button>
+                <button class="higher-6 btn-select">Higher</button>
+              </div>
+            </div>
+            <div class="card-container">
+              <img class="p6-card3" src="/img/green_card.png" alt="playing card" />
+              <div class="btn-container">
+              <button class="in-6 btn-select">In</button>
+              <button class="out-6 btn-select">Out</button>
+            </div>
+            </div>
+            <div class="card-container">
+              <img class="p6-card4" src="/img/green_card.png" alt="playing card" />
+              <div class="btn-container">
+              <button class="diamonds-6 btn-select">Diamonds</button>
+              <button class="spades-6 btn-select">Spades</button>
+              <button class="clubs-6 btn-select">Clubs</button>
+              <button class="hearts-4 btn-select">Hearts</button>
+            </div>`;
+}
+
+// document.querySelector(".start-game1").addEventListener("click", () => {
+//   socket.emit("startGame");
+// });
+// document.querySelector(".server").addEventListener("click", function () {
+//   document.querySelector(".players-modal1").classList.remove("hidden");
+
+//   socket.on("newPositions", function (data) {
+//     // console.log(data);
+//     data.forEach((player, i) => {
+//       console.log(player);
+//       document.querySelector(`.player${i + 1}-form`).classList.remove("hidden");
+
+//       document
+//         .querySelector(".submit-form")
+//         .addEventListener("click", function (e) {
+//           e.preventDefault();
+//           let playerName = document.querySelector(
+//             `.player-${i + 1}-name`
+//           ).value;
+//           // document.querySelector(".new-div").classList.remove("hidden");
+//           // document.querySelector(`.pizza${i}`).innerText = playerName;
+//           arr.push(playerName);
+//         });
+//     });
+//     console.log(arr);
+//   });
+// });
 
 //old
 // document.querySelector(".start-game").addEventListener("click", function () {
@@ -89,54 +338,6 @@ let player5Cards = [];
 let player6Cards = [];
 
 let playerCount = 0;
-
-const submitEvent = () =>
-  document
-    .querySelector(".submit-form")
-    .addEventListener("click", function (e) {
-      e.preventDefault();
-      document.querySelector(".players-modal1").classList.remove("hidden");
-      let player1Name = document.querySelector(".player-1-name").value;
-
-      document.querySelector(".new-div").classList.remove("hidden");
-      document.querySelector(".pizza").innerText = player1Name;
-      // let player2Name = document.querySelector(".player-2-name").value;
-      // let player3Name = document.querySelector(".player-3-name").value;
-      // let player4Name = document.querySelector(".player-4-name").value;
-      // let player5Name = document.querySelector(".player-5-name").value;
-      // let player6Name = document.querySelector(".player-6-name").value;
-    });
-
-// Form Submit
-// document.querySelector(".submit-form").addEventListener("click", function (e) {
-//   e.preventDefault();
-
-//   let player1Name = document.querySelector(".player-1-name").value;
-//   let player2Name = document.querySelector(".player-2-name").value;
-//   let player3Name = document.querySelector(".player-3-name").value;
-//   let player4Name = document.querySelector(".player-4-name").value;
-//   let player5Name = document.querySelector(".player-5-name").value;
-//   let player6Name = document.querySelector(".player-6-name").value;
-
-//   console.log(player1Name);
-//   document.querySelector(".player1-name").innerText = player1Name;
-//   document.querySelector(".player2-name").innerText = player2Name;
-//   document.querySelector(".player3-name").innerText = player3Name;
-//   document.querySelector(".player4-name").innerText = player4Name;
-//   document.querySelector(".player5-name").innerText = player5Name;
-//   document.querySelector(".player6-name").innerText = player6Name;
-//   e;
-
-//   document.querySelector(".player1-name-btn").innerText = player1Name;
-//   document.querySelector(".player2-name-btn").innerText = player2Name;
-//   document.querySelector(".player3-name-btn").innerText = player3Name;
-//   document.querySelector(".player4-name-btn").innerText = player4Name;
-//   document.querySelector(".player5-name-btn").innerText = player5Name;
-//   document.querySelector(".player6-name-btn").innerText = player6Name;
-
-//   document.querySelector(".players-modal").classList.add("hidden");
-//   document.querySelector(".game-container").classList.toggle("hidden");
-// });
 
 // PLAYER # SELECT
 document.querySelector(".player-1").addEventListener("click", function () {
@@ -208,17 +409,17 @@ document.querySelector(".player-5").addEventListener("click", function () {
   fivePlayers();
 });
 
-document.querySelector(".player-6").addEventListener("click", function () {
-  // document.querySelector(".player4").classList.add("hidden");
-  document.querySelector(".player2-form").classList.remove("hidden");
-  document.querySelector(".player3-form").classList.remove("hidden");
-  document.querySelector(".player4-form").classList.remove("hidden");
-  document.querySelector(".player5-form").classList.remove("hidden");
-  document.querySelector(".player6-form").classList.remove("hidden");
-  document.querySelector(".num-of-players-container").classList.add("hidden");
-  document.querySelector(".players-form").classList.remove("hidden");
-  sixPlayers();
-});
+// document.querySelector(".player-6").addEventListener("click", function () {
+// document.querySelector(".player4").classList.add("hidden");
+document.querySelector(".player2-form").classList.remove("hidden");
+document.querySelector(".player3-form").classList.remove("hidden");
+document.querySelector(".player4-form").classList.remove("hidden");
+document.querySelector(".player5-form").classList.remove("hidden");
+document.querySelector(".player6-form").classList.remove("hidden");
+document.querySelector(".num-of-players-container").classList.add("hidden");
+document.querySelector(".players-form").classList.remove("hidden");
+sixPlayers();
+// });
 
 // Initial API call
 const url = `https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`;
@@ -250,7 +451,7 @@ function won(x) {
   document
     .querySelector(".outcome-player-inner-container")
     .classList.remove("hidden");
-  playerMustDrinkWinner(x);
+  // playerMustDrinkWinner(x);
   setTimeout(() => {
     document.querySelector(".outcome-container").classList.add("hidden");
   }, 4000);
@@ -316,67 +517,69 @@ function gameOver() {
   document.querySelector(".up-next").innerHTML = `Game Over`;
 }
 
-const playerMustDrinkWinner = (x) => {
-  document.querySelector(".p1-drinks").addEventListener("click", () => {
-    document
-      .querySelector(".player-who-drinks-container")
-      .classList.remove("hidden");
-    document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
-      document.querySelector(".player1-name").innerText
-    } has to drink for ${x} seconds</p>`;
-  });
+// const playerMustDrinkWinner = (x) => {
+//   document.querySelector(".p1-drinks").addEventListener("click", () => {
+//     document
+//       .querySelector(".player-who-drinks-container")
+//       .classList.remove("hidden");
+//     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
+//       document.querySelector(".player1-name").innerText
+//     } has to drink for ${x} seconds</p>`;
+//   });
 
-  document.querySelector(".p2-drinks").addEventListener("click", () => {
-    document
-      .querySelector(".player-who-drinks-container")
-      .classList.remove("hidden");
-    document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
-      document.querySelector(".player2-name").innerText
-    } has to drink for ${x} seconds</p>`;
-  });
+//   document.querySelector(".p2-drinks").addEventListener("click", () => {
+//     document
+//       .querySelector(".player-who-drinks-container")
+//       .classList.remove("hidden");
+//     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
+//       document.querySelector(".player2-name").innerText
+//     } has to drink for ${x} seconds</p>`;
+//   });
 
-  document.querySelector(".p3-drinks").addEventListener("click", () => {
-    document
-      .querySelector(".player-who-drinks-container")
-      .classList.remove("hidden");
-    document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
-      document.querySelector(".player3-name").innerText
-    } has to drink for ${x} seconds</p>`;
-  });
+//   document.querySelector(".p3-drinks").addEventListener("click", () => {
+//     document
+//       .querySelector(".player-who-drinks-container")
+//       .classList.remove("hidden");
+//     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
+//       document.querySelector(".player3-name").innerText
+//     } has to drink for ${x} seconds</p>`;
+//   });
 
-  document.querySelector(".p4-drinks").addEventListener("click", () => {
-    document
-      .querySelector(".player-who-drinks-container")
-      .classList.remove("hidden");
-    document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
-      document.querySelector(".player4-name").innerText
-    } has to drink for ${x} seconds</p>`;
-  });
+//   document.querySelector(".p4-drinks").addEventListener("click", () => {
+//     document
+//       .querySelector(".player-who-drinks-container")
+//       .classList.remove("hidden");
+//     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
+//       document.querySelector(".player4-name").innerText
+//     } has to drink for ${x} seconds</p>`;
+//   });
 
-  document.querySelector(".p5-drinks").addEventListener("click", () => {
-    document
-      .querySelector(".player-who-drinks-container")
-      .classList.remove("hidden");
-    document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
-      document.querySelector(".player5-name").innerText
-    } has to drink for ${x} seconds</p>`;
-  });
+//   document.querySelector(".p5-drinks").addEventListener("click", () => {
+//     document
+//       .querySelector(".player-who-drinks-container")
+//       .classList.remove("hidden");
+//     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
+//       document.querySelector(".player5-name").innerText
+//     } has to drink for ${x} seconds</p>`;
+//   });
 
-  document.querySelector(".p6-drinks").addEventListener("click", () => {
-    document
-      .querySelector(".player-who-drinks-container")
-      .classList.remove("hidden");
-    document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
-      document.querySelector(".player6-name").innerText
-    } has to drink for ${x} seconds</p>`;
-  });
+//   document.querySelector(".p6-drinks").addEventListener("click", () => {
+//     document
+//       .querySelector(".player-who-drinks-container")
+//       .classList.remove("hidden");
+//     document.querySelector(".player-who-drinks-container").innerHTML = `<p>${
+//       document.querySelector(".player6-name").innerText
+//     } has to drink for ${x} seconds</p>`;
+//   });
 
-  setTimeout(() => {
-    document
-      .querySelector(".player-who-drinks-container")
-      .classList.add("hidden");
-  }, 0);
-};
+//   setTimeout(() => {
+//     document
+//       .querySelector(".player-who-drinks-container")
+//       .classList.add("hidden");
+//   }, 0);
+// };
+
+//
 
 function twoPlayers() {
   const p1FirstCard = async () => {
